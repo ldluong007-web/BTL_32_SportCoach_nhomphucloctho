@@ -1,0 +1,737 @@
+# ĐỀ CƯƠNG DỰ ÁN SPORTCOACH
+
+> Hệ thống hỗ trợ giảng dạy và học tập môn Giáo dục thể chất  
+> Môn học: CSE122 — Bài tập lớn
+
+---
+
+## 1. Lĩnh vực
+
+Giáo dục phổ thông / giảng dạy Giáo dục thể chất, thể dục thể thao và rèn luyện thể lực.
+
+---
+
+## 2. Tóm tắt sản phẩm
+
+**SportCoach** là hệ thống hỗ trợ giảng dạy và học tập môn Giáo dục thể chất. Sản phẩm giúp:
+
+- Giáo viên tạo giáo án theo tuần.
+- Quản lý thư viện video động tác.
+- Chấm điểm kỹ thuật và gửi phản hồi.
+- Học sinh ôn tập động tác qua giáo án trực quan.
+- Ghi nhật ký luyện tập.
+- Theo dõi tiến độ thể lực bằng biểu đồ.
+
+Sản phẩm tập trung phát triển **frontend nhiều trang, nhiều vai trò**, sử dụng dữ liệu qua **Mock API**.
+
+---
+
+## 3. Ngữ cảnh
+
+Giáo dục thể chất là môn bắt buộc ở cấp phổ thông, nhưng thời gian thực hành trên lớp còn hạn chế.
+
+Hiện nay:
+
+- Giáo án thường được soạn trên giấy.
+- Video và sơ đồ động tác được lưu rải rác.
+- Học sinh thiếu kênh ôn tập kỹ thuật giữa các buổi.
+- Học sinh khó tự đánh giá tiến bộ.
+- Giáo viên chủ yếu chấm điểm bằng quan sát kinh nghiệm.
+- Việc theo dõi thể lực của từng học sinh chưa mang tính khách quan.
+
+---
+
+## 4. Phát biểu vấn đề
+
+| Mã | Vấn đề |
+|---|---|
+| P1 | Học sinh không có kênh ôn lại động tác như chạy, bơi, bóng đá và thể dục nhịp điệu giữa các buổi học. |
+| P2 | Giáo án, video động tác và sơ đồ sân tập nằm rải rác, khó quản lý và cập nhật theo lớp, môn hoặc tuần. |
+| P3 | Giáo viên chấm điểm kỹ thuật chủ yếu bằng quan sát kinh nghiệm, chưa có dữ liệu theo dõi khách quan. |
+| P4 | Học sinh không có nhật ký luyện tập hoặc gợi ý bài tập phù hợp năng lực. |
+
+---
+
+## 5. Mục tiêu
+
+- [ ] O1. Biến bài toán dạy–học Giáo dục thể chất thành sản phẩm frontend có hành trình người dùng rõ ràng.
+- [ ] O2. Thiết kế đầy đủ giao diện cho từng vai trò, mỗi vai trò có ít nhất 3 màn hình.
+- [ ] O3. Thực hiện CRUD hoặc trạng thái nghiệp vụ phù hợp:
+  - Giáo án
+  - Video động tác
+  - Nhật ký luyện tập
+  - Chấm điểm kỹ thuật
+  - Giải thi đấu
+- [ ] O4. Sử dụng JavaScript và DOM cho:
+  - Điều khiển video động tác
+  - Canvas vẽ biểu đồ thể lực
+  - Đồng hồ/hẹn giờ tập
+  - Bộ đếm
+  - Kiểm tra hợp lệ dữ liệu
+- [ ] O5. Xây dựng dữ liệu bằng Mock API, JSON Server hoặc LocalStorage.
+- [ ] O6. Tối thiểu 3 cách truyền đạt kiến thức trực quan.
+- [ ] O7. Quản lý công việc bằng Trello, Jira hoặc Notion; quản lý mã nguồn bằng Git/GitHub theo nhánh và pull request.
+
+---
+
+## 6. Các vai trò
+
+| Vai trò | Trách nhiệm chính |
+|---|---|
+| **Khách** | Xem giới thiệu môn thể chất và thư viện video động tác công khai. |
+| **Học sinh** | Học giáo án, ôn video động tác, ghi nhật ký luyện tập và theo dõi tiến bộ. |
+| **Giáo viên** | Soạn giáo án, quản lý video, chấm điểm và phản hồi kỹ thuật, tổ chức thi đấu. |
+| **Quản trị viên** | Quản lý tài khoản, khối/lớp, môn thể thao và cấu hình tiết học. |
+
+---
+
+## 7. Hành trình người dùng tổng quát
+
+```text
+Khám phá / đăng nhập
+        ↓
+Thực hiện nghiệp vụ theo vai trò
+        ↓
+Xem tiến độ, dữ liệu hoặc phản hồi
+        ↓
+AI hỗ trợ (nếu có)
+        ↓
+Chấp nhận / chỉnh sửa / từ chối / lưu
+        ↓
+Vai trò vận hành duyệt hoặc xử lý
+        ↓
+Bảng điều khiển / báo cáo / hoàn tất
+```
+
+### Nguyên tắc phạm vi bắt buộc
+
+- **“3 giao diện/vai trò” chỉ là ngưỡng tối thiểu**, không phải mục tiêu tối đa.
+- Phải xây dựng đầy đủ màn hình để một nghiệp vụ chạy trọn vẹn từ đầu đến cuối.
+- Tiêu chí ưu tiên: **độ đầy đủ của nghiệp vụ** cao hơn số lượng giao diện.
+
+### Bảng kiểm kê luồng bắt buộc
+
+| Vai trò | Mục tiêu | Nhiệm vụ | Màn hình | Tệp | CRUD/trạng thái | Người phụ trách |
+|---|---|---|---|---|---|---|
+| Học sinh | Ôn đúng động tác | Xem giáo án và video; dừng hoặc điều chỉnh tốc độ | Học giáo án và video động tác | `student-lesson-view.html` | R: tải/rỗng/lỗi | SV1 |
+| Học sinh | Ghi nhật ký luyện tập | Nhập quãng chạy, số vòng và thời gian | Nhật ký luyện tập | `student-training-log.html` | C/R/U: hoàn thành/lỗi | SV1 |
+| Học sinh | Theo dõi thể lực | Xem biểu đồ tiến bộ theo tuần | Tiến độ thể lực | `student-progress.html` | R: rỗng/tải | SV1 |
+| Giáo viên | Soạn giáo án theo tuần | Tạo giáo án, gắn video và sơ đồ sân | Soạn giáo án | `teacher-lesson-plan.html` | C/R/U/D: lưu trữ/hủy | SV2 |
+| Giáo viên | Quản lý video động tác | Thêm, sửa, xóa và phân loại video | Quản lý video động tác | `teacher-move-video.html` | C/R/U/D: vô hiệu hóa | SV2 |
+| Giáo viên | Chấm điểm kỹ thuật | Chấm điểm và ghi nhận xét từng học sinh | Chấm điểm kỹ thuật | `teacher-skill-grading.html` | R/U: chờ/hoàn thành | SV2 |
+| Quản trị viên | Quản lý tài khoản và khối/lớp | Tạo, sửa, xóa tài khoản; gán khối/lớp | Quản lý người dùng | `admin-user-management.html` | C/R/U/D: lưu trữ | SV3 |
+| Quản trị viên | Cấu hình môn thể thao | Cấu hình môn, tiết học và thiết bị sân bãi | Cấu hình môn thể thao | `admin-sport-config.html` | R/U: vô hiệu hóa | SV3 |
+
+### Trạng thái bắt buộc
+
+Màn hình cần đủ các trạng thái phù hợp:
+
+- Đang tải
+- Rỗng
+- Thành công
+- Lỗi
+- Vô hiệu hóa
+- Đang chờ
+- Bị từ chối
+- Hoàn thành
+- Hủy hoặc lưu trữ
+
+### Màn hình dùng chung
+
+- `index.html`
+- `login.html`
+- `register.html`
+- `forgot-password.html`
+- `profile.html`
+- `settings.html`
+- `notifications.html`
+- `403.html`
+- `404.html`
+
+### Định nghĩa hoàn thành một màn hình
+
+Một màn hình chỉ được xem là hoàn thành khi có đầy đủ:
+
+- [ ] Bản mô phỏng Figma/Canva
+- [ ] HTML ngữ nghĩa
+- [ ] CSS hoàn chỉnh và responsive
+- [ ] Tương tác JavaScript
+- [ ] Kiểm tra hợp lệ biểu mẫu
+- [ ] Dữ liệu Mock API/JSON
+- [ ] Trạng thái rỗng, tải và lỗi khi hợp lý
+- [ ] Khả năng tiếp cận cơ bản
+- [ ] Pull request đã được review
+- [ ] Merge vào nhánh `dev`
+- [ ] Video OBS giảng giải
+- [ ] Chứng minh thao tác làm lại
+- [ ] README/bảng kiểm kê đã cập nhật
+
+### Lát cắt dọc cho từng sinh viên
+
+```text
+Bản mô phỏng → HTML → CSS → JavaScript → Dữ liệu
+→ Responsive → Nhánh Git → Commit → Pull request
+→ Video OBS giảng giải
+```
+
+Mỗi sinh viên phải hoàn thành ít nhất một luồng **end-to-end** và tự giảng giải được luồng đó.
+
+### Trải nghiệm khi AI thất bại
+
+Nếu nhóm có AI:
+
+- Cung cấp trạng thái thiếu dữ liệu, không chắc chắn hoặc lỗi.
+- Cho phép người dùng: chỉnh sửa, thử lại, bỏ qua, báo cáo hoặc dùng thủ công.
+
+### Bảo vệ/chỉnh sửa ngẫu nhiên
+
+Giảng viên có thể yêu cầu thay đổi trong 5–10 phút, ví dụ:
+
+- Thêm bộ lọc.
+- Đổi bảng thành thẻ.
+- Thêm trường dữ liệu và validation.
+- Xử lý API rỗng.
+- Thay đổi responsive.
+- Bổ sung trạng thái mới.
+
+Mục tiêu là kiểm tra khả năng làm lại và mức độ hiểu sản phẩm.
+
+---
+
+## 8. Danh sách giao diện nền tảng
+
+### Vai trò Khách
+
+| STT | Tệp | Giao diện | CRUD | Chức năng chính |
+|---|---|---|---|---|
+| 1 | `visitor-sport-overview.html` | Sport Overview | R | Xem giới thiệu bộ môn thể chất và các môn thể thao. |
+| 2 | `visitor-clip-preview.html` | Clip Preview | R | Xem thử video động tác công khai. |
+| 3 | `visitor-sport-feedback.html` | Sport Feedback | C/R | Góp ý môn thể thao hoặc bài tập cần bổ sung. |
+
+### Vai trò Học sinh
+
+| STT | Tệp | Giao diện | CRUD | Chức năng chính |
+|---|---|---|---|---|
+| 4 | `student-dashboard.html` | Dashboard | R | Xem tiến độ thể lực, lịch tập và thông báo. |
+| 5 | `student-lesson-view.html` | Lesson View | R | Xem giáo án, video động tác và sơ đồ sân tập. |
+| 6 | `student-training-log.html` | Training Log | C/R/U | Ghi nhật ký luyện tập. |
+| 7 | `student-progress.html` | Progress | R | Xem biểu đồ tiến bộ thể lực bằng canvas. |
+
+### Vai trò Giáo viên
+
+| STT | Tệp | Giao diện | CRUD | Chức năng chính |
+|---|---|---|---|---|
+| 8 | `teacher-dashboard.html` | Dashboard | R | Xem tổng quan lớp, giáo án và mức độ tập luyện. |
+| 9 | `teacher-lesson-plan.html` | Lesson Plan | C/R/U/D | Soạn giáo án theo tuần và gắn tài liệu trực quan. |
+| 10 | `teacher-move-video.html` | Move Video | C/R/U/D | Quản lý video động tác theo môn. |
+| 11 | `teacher-skill-grading.html` | Skill Grading | R/U | Chấm điểm kỹ thuật và ghi nhận xét. |
+| 12 | `teacher-tournament.html` | Tournament | C/R/U | Tổ chức thi đấu và bảng thành tích. |
+
+### Vai trò Quản trị viên
+
+| STT | Tệp | Giao diện | CRUD | Chức năng chính |
+|---|---|---|---|---|
+| 13 | `admin-dashboard.html` | Dashboard | R | Quản trị hệ thống. |
+| 14 | `admin-user-management.html` | User Management | C/R/U/D | Quản lý tài khoản và khối/lớp. |
+| 15 | `admin-sport-config.html` | Sport Config | R/U | Cấu hình môn thể thao, tiết học và thiết bị. |
+
+---
+
+## 9. Chuẩn chi tiết cho từng giao diện
+
+Mỗi màn hình phải có:
+
+- Tệp HTML đúng tên.
+- Điều hướng nhất quán.
+- Nội dung chính phù hợp vai trò:
+  - Card
+  - Danh sách
+  - Bảng
+  - Biểu mẫu
+  - Bảng điều khiển
+  - Mô phỏng học liệu
+- Trạng thái tải/rỗng/lỗi.
+- Responsive trên nhiều kích thước màn hình.
+- Tương tác JavaScript có ý nghĩa:
+  - Video
+  - Đồng hồ tập
+  - Canvas
+- Kiểm tra hợp lệ dữ liệu.
+- Dữ liệu Mock API/JSON.
+- Giao diện AI nếu có:  
+  `Nhập → Kiểm tra → Xử lý → Kết quả → Giải thích → Người dùng kiểm soát`
+
+### Quy tắc CRUD
+
+- **C — Create:** Tạo
+- **R — Read:** Đọc
+- **U — Update:** Cập nhật
+- **D — Delete:** Xóa
+
+Nên thay **xóa** bằng **hủy, lưu trữ, vô hiệu hóa hoặc đóng** nếu hợp với nghiệp vụ.
+
+---
+
+## 10. Ma trận thực thể và CRUD
+
+| Thực thể | Tạo | Đọc | Sửa | Xóa/lưu trữ | Ghi chú |
+|---|---|---|---|---|---|
+| `users` | ✓ | ✓ | ✓ | ✓/lưu trữ | Tài khoản giáo viên, học sinh và quản trị. |
+| `sports` | ✓ | ✓ | ✓ | ✓/lưu trữ | Điền kinh, bóng đá, bơi, thể dục nhịp điệu. |
+| `lessonPlans` | ✓ | ✓ | ✓ | ✓/lưu trữ | Giáo án theo tuần/lớp, gắn video và sơ đồ. |
+| `moves` | ✓ | ✓ | ✓ | ✓/lưu trữ | Video và mô tả kỹ thuật động tác. |
+| `trainingLogs` | ✓ | ✓ | ✓ | ✓/lưu trữ | Quãng chạy, số vòng và thời gian. |
+| `skillScores` | ✓ | ✓ | ✓ | ✓/lưu trữ | Điểm kỹ thuật và nhận xét. |
+| `tournaments` | ✓ | ✓ | ✓ | ✓/lưu trữ | Thi đấu và bảng xếp hạng. |
+| `db.json` | — | ✓ | — | — | Mock API chứa toàn bộ entity. |
+
+---
+
+## 11. Kỹ năng truyền đạt kiến thức
+
+Nhóm phải thực hiện tối thiểu **3 cách truyền đạt trực quan** sau:
+
+### Cách 1: Video động tác từng bước
+
+- **Màn hình:** `student-lesson-view.html`
+- **Tính năng:** Dừng, tua, điều chỉnh tốc độ và xem lại từng cử động.
+- **Giá trị:** Giúp học sinh quan sát nhịp chạy, tư thế đá bóng hoặc động tác thể dục nhịp điệu bằng nhiều lần xem.
+
+### Cách 2: Sơ đồ sân tập tương tác
+
+- **Màn hình:** `student-lesson-view.html`, `teacher-lesson-plan.html`
+- **Tính năng:** SVG có vị trí đứng, đường chạy, khu vực kỹ thuật và tooltip.
+- **Giá trị:** Giúp học sinh định vị luồng vận động và giáo viên soạn bài trực quan.
+
+### Cách 3: Biểu đồ tiến độ bằng canvas
+
+- **Màn hình:** `student-progress.html`
+- **Tính năng:** Vẽ biểu đồ đường/cột về quãng chạy, số vòng và thời gian theo tuần.
+- **Giá trị:** Giúp học sinh nhận ra tiến bộ và mối liên hệ giữa luyện tập với thể lực.
+
+### Cách 4: Đồng hồ tập kết hợp nhật ký
+
+- **Màn hình:** `student-training-log.html`
+- **Tính năng:** Bấm giờ, nhập số liệu, kiểm tra hợp lệ và nhận phản hồi nhanh.
+- **Giá trị:** Giúp hình thành thói quen theo dõi thể lực.
+
+### Cách 5: Flashcard và trắc nghiệm kỹ thuật
+
+- **Màn hình:** `student-lesson-view.html`
+- **Tính năng:** Thẻ lật và câu đố ngắn.
+- **Giá trị:** Củng cố thứ tự động tác, biên độ, nhịp độ và lỗi thường gặp.
+
+---
+
+## 12. Ý tưởng AI nâng cao — không bắt buộc
+
+Các tính năng dưới đây chỉ là lựa chọn mở rộng sau khi hoàn thành phần cốt lõi.
+
+### AI-1: Đánh giá kỹ thuật động tác
+
+Phân tích nhật ký luyện tập theo tiêu chuẩn của từng khối lớp để gợi ý điểm mạnh, điểm yếu và điều chỉnh.
+
+**Cách mô phỏng:** JSON giả lập, quy tắc JavaScript hoặc API LLM tùy chọn.
+
+### AI-2: Gợi ý giáo án
+
+Gợi ý giáo án, cường độ và phân bố thời gian dựa trên khối lớp, tuần, môn thể thao và năng lực.
+
+**Cách mô phỏng:** JSON mẫu, quy tắc tạo giáo án hoặc API LLM tùy chọn.
+
+### AI-3: Điều chỉnh bài tập thích ứng
+
+Gợi ý tăng/giảm cường độ và bài tập bổ trợ dựa trên nhật ký luyện tập.
+
+**Cách mô phỏng:** Quy tắc ngưỡng thể lực, JSON giả lập hoặc API LLM tùy chọn.
+
+### Quy trình trải nghiệm AI
+
+```text
+Nhập dữ liệu
+→ Kiểm tra dữ liệu
+→ Xử lý
+→ Hiển thị kết quả
+→ Giải thích
+→ Chấp nhận / chỉnh sửa / từ chối
+→ Lưu
+```
+
+---
+
+## 13. Dữ liệu giả lập và API
+
+### Entity chính
+
+- `users`
+- `sports`
+- `lessonPlans`
+- `moves`
+- `trainingLogs`
+- `skillScores`
+- `tournaments`
+
+### Dữ liệu gợi ý
+
+- **Sports:** Điền kinh, bóng đá, bơi lội, thể dục nhịp điệu.
+- **Moves:** Kỹ thuật chạy, kỹ thuật đá bóng, động tác khởi động.
+- **Lesson plans:** Giáo án tuần cho lớp 10, 11 và 12.
+- **Training logs:** Quãng chạy, số vòng và thời gian theo buổi.
+
+Tệp `db.json` có thể được sử dụng với JSON Server, MockAPI hoặc LocalStorage. Không bắt buộc backend thật; trọng tâm là trải nghiệm frontend.
+
+---
+
+## 14. Gợi ý prompt cho sinh viên
+
+Mục này khuyến khích sinh viên dùng AI có trách nhiệm như công cụ học tập, không để AI làm thay toàn bộ bài.
+
+### Cách sử dụng AI hiệu quả
+
+1. Viết prompt có ngữ cảnh, vai trò, yêu cầu và giới hạn phạm vi.
+2. Thực hiện hai vòng:
+   - Tạo bản nháp.
+   - Yêu cầu giải thích và gợi ý cải thiện.
+3. Chạy thử kết quả.
+4. Tự sửa, kiểm chứng và giảng giải lại bằng lời của mình.
+
+### Prompt 1: Dựng giáo án thể chất
+
+```text
+Tôi là sinh viên môn CSE122 đang làm bài tập lớn về hệ thống
+SportCoach – hỗ trợ giảng dạy và học tập môn Giáo dục thể chất.
+
+Hãy giúp tôi soạn giáo án tuần cho lớp 10 môn Điền kinh,
+chủ đề kỹ thuật chạy cự ly ngắn.
+
+Yêu cầu:
+- Giao diện áp dụng: teacher-lesson-plan.html
+- Chia giai đoạn động tác
+- Gắn video kỹ thuật
+- Dùng sơ đồ sân tập SVG
+- Liệt kê lỗi thường gặp
+- Giải thích logic phân bố thời gian:
+  khởi động – luyện tập – thả lỏng
+
+Hãy giải thích logic sau khi đề xuất để tôi có thể hiểu và làm lại.
+```
+
+### Prompt 2: Tạo mock data
+
+```text
+Tạo file db.json cho hệ thống SportCoach với các entity:
+users, sports, lessonPlans, moves, trainingLogs,
+skillScores và tournaments.
+
+Mỗi entity có 5–8 bản ghi mẫu theo môn Giáo dục thể chất.
+Dữ liệu cần có id, timestamps và các trường phù hợp với nghiệp vụ.
+Xuất kết quả dưới dạng JSON hợp lệ.
+```
+
+### Prompt 3: Học và kiểm chứng canvas
+
+```text
+Đừng viết toàn bộ mã cho tôi.
+Hãy hướng dẫn từng bước cách dựng biểu đồ tiến độ thể lực bằng canvas
+trong student-progress.html.
+
+Sau mỗi đoạn code, hãy:
+- Giải thích vì sao viết như vậy
+- Chỉ ra cách chạy thử
+- Đưa ra một bài tập nhỏ để tôi tự viết lại
+```
+
+### Tránh lạm dụng AI
+
+- Không nộp kết quả mà chưa hiểu.
+- Tự sửa và kiểm chứng kết quả AI.
+- Khai báo trong `docs/ai-usage-report.md`:
+  - Công cụ đã dùng
+  - Prompt chính
+  - Phần AI tạo ra
+  - Phần tự chỉnh sửa
+  - Lỗi gặp phải
+  - Cách kiểm chứng
+  - Điều đã học được
+  - Tính năng giả lập hay thật
+
+---
+
+## 15. Phân công nhóm 3 sinh viên
+
+### SV1
+
+- Phụ trách: Khách và Học sinh.
+- Trách nhiệm chéo: giao diện dùng chung và responsive.
+
+### SV2
+
+- Phụ trách: Giáo viên.
+- Trách nhiệm chéo: JavaScript, dữ liệu, Mock API và review PR.
+
+### SV3
+
+- Phụ trách: Quản trị viên.
+- Tích hợp bố cục, điều hướng và dashboard.
+- Trách nhiệm chéo: thống nhất dự án và phát hành.
+
+### Trách nhiệm chéo bắt buộc
+
+- Hệ thống thiết kế.
+- Điều hướng.
+- Khả năng tiếp cận.
+- JavaScript và tương tác.
+- Dữ liệu và Mock API.
+- Responsive và tích hợp.
+- Phát hành và đảm bảo chất lượng.
+
+Mỗi sinh viên đều phải có:
+
+- [ ] HTML
+- [ ] CSS
+- [ ] JavaScript
+- [ ] Git/GitHub
+- [ ] Video OBS giảng giải
+- [ ] Một phần “làm lại được”
+
+---
+
+## 16. Kho mã nguồn GitHub
+
+**Tên repository gợi ý:** `cse122-sportcoach-teamXX`
+
+### Nhánh
+
+- `main`
+- `dev`
+- `feature/...`
+
+### Quy trình làm việc
+
+```text
+Task → Branch → Code → Commit → Push
+→ Pull Request → Review → Merge dev
+→ Test → Merge main
+```
+
+### Quy tắc commit
+
+Sử dụng Conventional Commit:
+
+- `feat:` — Thêm tính năng
+- `fix:` — Sửa lỗi
+- `style:` — Bổ sung hoặc chỉnh sửa giao diện
+- `refactor:` — Tái cấu trúc mã
+- `docs:` — Cập nhật tài liệu
+
+Không sử dụng commit kiểu `update`, `done`, `final`, `fix code` hoặc spam nhiều commit không ý nghĩa.
+
+---
+
+## 17. Bảng công việc
+
+### Bảng Trello/Jira/Notion
+
+```text
+TỒN ĐỌNG → CẦN LÀM → ĐANG LÀM → CHỜ DUYỆT → HOÀN THÀNH
+```
+
+Mỗi task cần có:
+
+- Mã task
+- Tệp/giao diện
+- Người phụ trách
+- Deadline
+- Nhánh
+- Link pull request/commit
+- Link video OBS
+
+### Task mẫu
+
+- `TASK-01` — Mockup
+- `TASK-02` — HTML theo vai trò
+- `TASK-03` — Responsive CSS
+- `TASK-04` — JavaScript tương tác
+- `TASK-05` — Mock API
+- `TASK-06` — AI (tùy chọn)
+- `TASK-07` — Kiểm thử đa trình duyệt
+- `TASK-08` — OBS và README
+
+---
+
+## 18. Video OBS giảng giải
+
+Mỗi trang giao diện thực tế đã duyệt cần có **ít nhất một video OBS**.
+
+### Nội dung bắt buộc
+
+- Có khuôn mặt và giọng giải thích của sinh viên.
+- Mở mockup Figma/Canva và giải thích lý do thiết kế.
+- Mở đúng tệp HTML/CSS/JavaScript.
+- Giải thích layout, logic nghiệp vụ và ý nghĩa từng phần UI.
+- Thực hiện một thay đổi nhỏ tại chỗ:
+  - Đổi style
+  - Thêm filter
+  - Thêm field
+- Chạy lại và chứng minh thay đổi.
+- Commit thay đổi lên GitHub.
+- Nêu rõ task, nhánh và commit.
+- Làm lại thao tác được giảng viên hoặc nhóm yêu cầu.
+
+### Quy tắc đặt tên video
+
+- `SV1-01-ten-man-hinh.mp4`
+- `SV2-01-ten-man-hinh.mp4`
+- `SV3-01-ten-man-hinh.mp4`
+
+---
+
+## 19. Thiết kế Figma/Canva
+
+Trước khi code, cần chuẩn bị:
+
+- Sơ đồ trang
+- Luồng người dùng
+- Bảng kiểm kê màn hình
+- Wireframe
+- Mockup desktop
+- Bản responsive
+- Hướng dẫn thành phần UI
+- Trạng thái tải/rỗng/lỗi
+
+---
+
+## 20. Cấu trúc kho mã nguồn gợi ý
+
+```text
+project-root/
+├── README.md
+├── docs/
+│   ├── project-proposal/
+│   ├── screen-list/
+│   ├── team-assignment/
+│   └── ai-usage-report/
+├── design/
+│   ├── figma-link.txt
+│   └── mockups/
+├── pages/
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   ├── videos/
+│   └── data/
+├── css/
+│   ├── style.css
+│   └── responsive.css
+├── js/
+│   ├── main.js
+│   ├── api.js
+│   └── modules/
+└── db.json
+```
+
+---
+
+## 21. Khai báo công cụ hỗ trợ
+
+Tài liệu `docs/ai-usage-report.md` cần ghi rõ:
+
+- Công cụ đã dùng: ChatGPT, Claude, Gemini, Copilot,…
+- Prompt chính.
+- Phần do AI sinh ra.
+- Phần sinh viên tự chỉnh sửa.
+- Lỗi gặp phải.
+- Cách kiểm chứng.
+- Điều đã học được.
+- Tính năng mock hay tính năng thật.
+
+---
+
+## 22. Phạm vi sản phẩm tối thiểu
+
+### Bắt buộc
+
+- Đủ vai trò và màn hình theo bảng kiểm kê.
+- Điều hướng xuyên suốt.
+- Responsive.
+- CRUD mô phỏng có ý nghĩa.
+- Tìm kiếm, lọc và kiểm tra biểu mẫu.
+- Dữ liệu Mock API/JSON.
+- Ba cách truyền đạt trực quan:
+  - Video động tác
+  - Sơ đồ sân tập tương tác
+  - Đồ thị tiến độ canvas
+- Minh chứng Trello/Notion.
+- Git/GitHub với nhánh và pull request.
+- Video OBS cho từng màn hình.
+- Khả năng làm lại khi bảo vệ.
+
+### Nên có
+
+- Biểu đồ và bảng điều khiển.
+- Thông báo nổi.
+- Trạng thái rỗng/tải/lỗi.
+- Component và token dùng lại.
+- Chế độ sáng/tối.
+
+### Có thể mở rộng
+
+- Ý tưởng AI nâng cao.
+- API LLM thật.
+- Hoạt ảnh vi mô.
+- PWA.
+- GPS/GPX đo quãng chạy.
+
+---
+
+## 23. Tiêu chí duyệt đề
+
+Đề tài được xem là hoàn thành khi chuỗi dưới đây được kiểm tra đầy đủ:
+
+```text
+Ngữ cảnh
+→ Vấn đề
+→ Mục tiêu
+→ Vai trò
+→ Màn hình
+→ Bản mô phỏng
+→ Công việc
+→ Nhánh
+→ Commit
+→ Pull request
+→ Video OBS
+→ Làm lại được
+→ Sản phẩm
+```
+
+---
+
+## 24. Thang điểm gợi ý
+
+| Tiêu chí | Tỷ lệ |
+|---|---:|
+| Đầy đủ nghiệp vụ và chất lượng frontend | 30% |
+| Cách truyền đạt kiến thức trực quan | 25% |
+| Video OBS và khả năng làm lại khi bảo vệ | 30% |
+| Git/GitHub, Trello/Notion và AI usage disclosure | 15% |
+
+> Thang điểm có thể điều chỉnh theo từng kỳ học.
+
+---
+
+## 25. Chuẩn đầu ra mong đợi
+
+Sau khi hoàn thành bài tập lớn, sinh viên phải chứng minh được:
+
+- Phân tích được vấn đề.
+- Chia hệ thống thành vai trò và màn hình.
+- Thiết kế UI/UX bằng Figma/Canva.
+- Viết HTML ngữ nghĩa.
+- Tạo CSS/Bootstrap responsive.
+- Sử dụng JavaScript DOM, sự kiện và biểu mẫu.
+- Sử dụng JSON/Mock API.
+- Tạo cách truyền đạt kiến thức sáng tạo:
+  - Video động tác
+  - Đồ thị canvas
+- Sử dụng Git/GitHub trong teamwork.
+- Tự giảng giải và làm lại được sản phẩm.
