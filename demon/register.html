@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportCoach — Tạo tài khoản</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bungee&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0e7a3d; --green-hi:#14934b; --green-deep:#0a5c2e;
+  --pine:#0c2b18; --pine-2:#123a22;
+  --lime:#a3e635; --lime-deep:#65a30d;
+  --danger:#e11d48;
+  --paper:#f3f4ee; --surface:#ffffff; --ink:#182420; --mut:#5c6b62; --line:#e2e6da;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;min-height:100vh;color:var(--ink);background:var(--paper)}
+button,input,select{font-family:inherit}
+a{color:inherit;text-decoration:none}
+h1,h2,.bt{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400}
+
+.auth-shell{
+  min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr;
+  background:
+    radial-gradient(900px 560px at 85% -10%, rgba(163,230,53,.14), transparent 60%),
+    linear-gradient(150deg,var(--pine) 0%,var(--pine-2) 55%,#0d3320 100%);
+}
+.auth-left{
+  padding:48px 52px;color:#eef4ec;display:flex;flex-direction:column;justify-content:space-between;
+}
+.brandline{display:flex;align-items:center;gap:12px}
+.brandmark{width:46px;height:46px;border-radius:14px;background:linear-gradient(140deg,var(--lime),var(--green-hi));display:grid;place-items:center;font-size:23px;box-shadow:0 10px 24px -8px rgba(163,230,53,.55)}
+.bt{font-size:19px;line-height:1.1;color:#fff}
+.bs{font-size:10.5px;color:#9fc3a8;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.auth-left h1{font-size:clamp(24px,3vw,36px);line-height:1.25;margin:28px 0 14px}
+.auth-left h1 .hl{color:var(--lime)}
+.auth-left .lead{color:#b9cdbd;font-size:14.5px;max-width:460px;line-height:1.65}
+.perks{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.perk{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#d6e8d4;font-weight:600}
+.perk span{width:26px;height:26px;border-radius:8px;background:rgba(163,230,53,.16);color:var(--lime);display:grid;place-items:center;font-size:13px}
+.back-home{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#cfe6c2;padding:9px 14px;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);align-self:flex-start;transition:all .18s}
+.back-home:hover{border-color:var(--lime);color:var(--lime)}
+
+.auth-right{
+  display:flex;align-items:center;justify-content:center;padding:32px 24px;
+  background:var(--paper);border-radius:28px 0 0 28px;
+}
+.auth-card{width:min(460px,100%)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;border-radius:14px;background:#e6eae0;margin-bottom:22px}
+.tab{padding:10px;border-radius:10px;text-align:center;font-weight:800;font-size:13.5px;color:var(--mut);transition:all .18s}
+.tab.active{background:var(--surface);color:var(--pine);box-shadow:0 4px 12px -4px rgba(18,36,24,.18)}
+
+.auth-card h2{font-size:22px;color:var(--pine);margin-bottom:6px}
+.auth-sub{font-size:13.5px;color:var(--mut);margin-bottom:20px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+.field input,.field select{width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-size:14px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(14,122,61,.14)}
+.field .err{font-size:11.5px;color:var(--danger);margin-top:4px;display:none}
+.field.invalid input{border-color:var(--danger)}
+.field.invalid .err{display:block}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  padding:13px 18px;border-radius:13px;font-weight:800;font-size:14px;cursor:pointer;border:none;transition:all .18s;margin-top:4px;
+}
+.btn-p{background:linear-gradient(110deg,var(--green-hi),var(--green-deep));color:#fff;box-shadow:0 8px 20px -8px rgba(14,122,61,.65)}
+.btn-p:hover{filter:brightness(1.06);transform:translateY(-1px)}
+
+.form-foot{margin-top:16px;text-align:center;font-size:13px;color:var(--mut)}
+.form-foot a{color:var(--green);font-weight:800}
+.form-foot a:hover{text-decoration:underline}
+
+.toast-zone{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:120}
+.toast{background:var(--pine);color:#eef4ec;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;border:1.5px solid var(--lime-deep);box-shadow:0 16px 34px -10px rgba(0,0,0,.45)}
+
+@media (max-width:900px){
+  .auth-shell{grid-template-columns:1fr}
+  .auth-left{padding:32px 24px}
+  .auth-right{border-radius:24px 24px 0 0;padding:32px 20px}
+}
+@media (max-width:520px){
+  .frow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="auth-shell">
+  <aside class="auth-left">
+    <div>
+      <a href="index.html" class="brandline">
+        <span class="brandmark">🏅</span>
+        <div>
+          <div class="bt">SportCoach</div>
+          <div class="bs">Giáo dục thể chất</div>
+        </div>
+      </a>
+      <h1>Tạo tài khoản <span class="hl">SportCoach</span></h1>
+      <p class="lead">Đăng ký miễn phí để lưu nhật ký luyện tập, theo dõi tiến độ thể lực cá nhân hoặc quản lý giáo án lớp học.</p>
+      <div class="perks">
+        <div class="perk"><span>🎓</span> Học sinh: Nhật ký tập luyện & biểu đồ tiến độ</div>
+        <div class="perk"><span>🧑‍🏫</span> Giáo viên: Soạn giáo án tuần & chấm điểm Rubric</div>
+        <div class="perk"><span>⚡</span> Kích hoạt ngay trên trình duyệt, không cần cài đặt</div>
+      </div>
+    </div>
+    <a href="index.html" class="back-home" style="margin-top:28px">← Quay lại Trang chủ Khách</a>
+  </aside>
+
+  <main class="auth-right">
+    <div class="auth-card">
+      <div class="tabs">
+        <a href="login.html" class="tab">Đăng nhập</a>
+        <a href="register.html" class="tab active">Tạo tài khoản</a>
+      </div>
+
+      <h2>Tạo tài khoản mới</h2>
+      <p class="auth-sub">Điền thông tin bên dưới để bắt đầu sử dụng hệ thống.</p>
+
+      <form id="registerForm" novalidate>
+        <div class="field" id="nameWrap">
+          <label for="fullName">Họ và tên *</label>
+          <input id="fullName" type="text" placeholder="Ví dụ: Nguyễn Minh Khôi">
+          <div class="err">Vui lòng nhập họ tên (tối thiểu 2 ký tự).</div>
+        </div>
+
+        <div class="field" id="emailWrap">
+          <label for="email">Email *</label>
+          <input id="email" type="email" placeholder="khoi.10a1@school.edu.vn">
+          <div class="err">Vui lòng nhập địa chỉ email hợp lệ.</div>
+        </div>
+
+        <div class="frow">
+          <div class="field">
+            <label for="role">Vai trò</label>
+            <select id="role">
+              <option value="student">Học sinh</option>
+              <option value="teacher">Giáo viên</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="unit">Lớp / Đơn vị</label>
+            <input id="unit" type="text" placeholder="VD: 10A1 hoặc THPT Nguyễn Du">
+          </div>
+        </div>
+
+        <div class="frow">
+          <div class="field" id="passWrap">
+            <label for="password">Mật khẩu *</label>
+            <input id="password" type="password" placeholder="Tối thiểu 6 ký tự">
+            <div class="err">Mật khẩu tối thiểu 6 ký tự.</div>
+          </div>
+          <div class="field" id="confirmWrap">
+            <label for="confirmPassword">Nhập lại mật khẩu *</label>
+            <input id="confirmPassword" type="password" placeholder="Xác nhận mật khẩu">
+            <div class="err">Mật khẩu xác nhận chưa khớp.</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-p">Tạo tài khoản & Đăng nhập →</button>
+      </form>
+
+      <div class="form-foot">
+        Đã có tài khoản? <a href="login.html">Đăng nhập ngay</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+function showToast(msg) {
+  const z = document.getElementById('toastZone');
+  z.innerHTML = '<div class="toast">' + msg + '</div>';
+  setTimeout(() => { z.innerHTML = ''; }, 2800);
+}
+
+document.getElementById('registerForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const role = document.getElementById('role').value;
+  const unit = document.getElementById('unit').value.trim();
+  const password = document.getElementById('password').value;
+  const confirm = document.getElementById('confirmPassword').value;
+
+  const nameWrap = document.getElementById('nameWrap');
+  const emailWrap = document.getElementById('emailWrap');
+  const passWrap = document.getElementById('passWrap');
+  const confirmWrap = document.getElementById('confirmWrap');
+
+  let ok = true;
+  if (name.length < 2) { nameWrap.classList.add('invalid'); ok = false; }
+  else nameWrap.classList.remove('invalid');
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { emailWrap.classList.add('invalid'); ok = false; }
+  else emailWrap.classList.remove('invalid');
+
+  if (password.length < 6) { passWrap.classList.add('invalid'); ok = false; }
+  else passWrap.classList.remove('invalid');
+
+  if (confirm !== password || confirm.length < 6) { confirmWrap.classList.add('invalid'); ok = false; }
+  else confirmWrap.classList.remove('invalid');
+
+  if (!ok) return;
+
+  try {
+    const users = JSON.parse(localStorage.getItem('sportcoach_users') || '[]');
+    if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+      emailWrap.classList.add('invalid');
+      emailWrap.querySelector('.err').textContent = 'Email này đã được đăng ký.';
+      return;
+    }
+    users.push({ name, email, role, unit, password, createdAt: new Date().toISOString() });
+    localStorage.setItem('sportcoach_users', JSON.stringify(users));
+  } catch (err) {}
+
+  showToast('✔ Tạo tài khoản thành công! Đang chuyển sang trang Đăng nhập...');
+  setTimeout(() => { window.location.href = 'login.html'; }, 1000);
+});
+</script>
+</body>
+</html>

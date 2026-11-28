@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportCoach — Trang chủ Khách | Hệ thống Giáo dục Thể chất</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bungee&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0e7a3d; --green-hi:#14934b; --green-deep:#0a5c2e;
+  --pine:#0c2b18; --pine-2:#123a22;
+  --lime:#a3e635; --lime-deep:#65a30d;
+  --blue:#1d6fe0; --blue-deep:#1554ad;
+  --orange:#f4632e; --orange-deep:#c94a1c;
+  --gold:#f5b301; --purple:#8b5cf6; --cyan:#0ea5e9;
+  --ok:#16a34a; --warn:#f59e0b; --danger:#e11d48;
+  --paper:#f3f4ee; --surface:#ffffff; --ink:#182420; --mut:#5c6b62; --line:#e2e6da;
+  --shadow:0 14px 34px -18px rgba(18,36,24,.35);
+  --r:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-color:var(--green) #e9ece2;scrollbar-width:thin}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.6}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:14px;color:var(--ink)}
+a{color:inherit;text-decoration:none}
+canvas,svg{display:block}
+::selection{background:var(--lime);color:var(--pine)}
+h1,h2,h3.brand{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400;letter-spacing:.01em}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ============ NAVBAR ============ */
+.nav{
+  position:sticky;top:0;z-index:80;
+  background:rgba(243,244,238,.9);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  height:70px;display:flex;align-items:center;gap:20px;justify-content:space-between;
+}
+.brandline{display:flex;align-items:center;gap:12px}
+.brandmark{
+  width:44px;height:44px;border-radius:13px;
+  background:linear-gradient(140deg,var(--lime),var(--green-hi));
+  display:grid;place-items:center;font-size:22px;
+  box-shadow:0 8px 20px -8px rgba(163,230,53,.65);
+}
+.brandline .bt{font-family:'Bungee';font-size:18px;line-height:1.1;color:var(--pine)}
+.brandline .bs{font-size:10px;color:var(--green);letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{
+  padding:8px 13px;border-radius:10px;font-weight:700;font-size:13.5px;color:var(--mut);
+  transition:background .18s,color .18s;
+}
+.nav-links a:hover{background:#e7ece0;color:var(--pine)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.guest-pill{
+  font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:999px;
+  background:#e5f5e9;color:var(--green-deep);border:1px solid #bfe5c8;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.guest-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.hambtn{display:none;width:40px;height:40px;border-radius:11px;border:1px solid var(--line);background:var(--surface);place-items:center;font-size:20px}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 20px;border-radius:13px;font-weight:800;font-size:13.5px;
+  transition:all .2s;border:1.5px solid transparent;white-space:nowrap;
+}
+.btn-p{background:linear-gradient(110deg,var(--green-hi),var(--green-deep));color:#fff;box-shadow:0 8px 20px -8px rgba(14,122,61,.65)}
+.btn-p:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn-lime{background:var(--lime);color:var(--pine);box-shadow:0 10px 24px -10px rgba(163,230,53,.7)}
+.btn-lime:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn-o{background:linear-gradient(110deg,var(--orange),var(--orange-deep));color:#fff;box-shadow:0 8px 20px -8px rgba(244,99,46,.55)}
+.btn-o:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn-g{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-g:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+.btn-dark-ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);color:#eef4ec}
+.btn-dark-ghost:hover{border-color:var(--lime);color:var(--lime);transform:translateY(-2px)}
+.btn-sm{padding:8px 14px;font-size:12.5px;border-radius:11px}
+
+/* ============ HERO ============ */
+.hero{
+  background:
+    radial-gradient(900px 520px at 88% -8%, rgba(163,230,53,.16), transparent 60%),
+    radial-gradient(680px 460px at -8% 108%, rgba(29,111,224,.18), transparent 55%),
+    linear-gradient(150deg,var(--pine) 0%,var(--pine-2) 55%,#0d3320 100%);
+  color:#eef4ec;position:relative;overflow:hidden;padding:56px 0 64px;
+}
+.hero-court{position:absolute;inset:0;opacity:.14;pointer-events:none}
+.hero-grid{
+  display:grid;grid-template-columns:1.12fr .88fr;gap:34px;align-items:center;position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;
+  padding:6px 14px;border-radius:999px;background:rgba(163,230,53,.14);
+  border:1px solid rgba(163,230,53,.35);color:var(--lime);margin-bottom:18px;
+}
+.hero h1{font-size:clamp(26px,3.6vw,42px);line-height:1.22;margin-bottom:16px}
+.hero h1 .hl{color:var(--lime)}
+.hero .lead{color:#c4d8c8;font-size:15.5px;max-width:540px;margin-bottom:26px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;padding-top:18px;border-top:1px dashed rgba(163,230,53,.22)}
+.hero-stats div b{font-family:'Bungee';font-size:22px;color:var(--lime);display:block;line-height:1.1}
+.hero-stats div span{font-size:12px;color:#a8c4ae;font-weight:600}
+
+/* Preview Card in Hero */
+.preview-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(163,230,53,.24);
+  border-radius:20px;padding:16px;backdrop-filter:blur(8px);
+  box-shadow:0 24px 48px -20px rgba(0,0,0,.45);
+}
+.preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.preview-head b{font-size:13.5px;color:#fff}
+.preview-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.ptab{
+  padding:5px 10px;border-radius:999px;font-size:11.5px;font-weight:700;
+  background:rgba(255,255,255,.1);color:#cfe6c2;border:1px solid transparent;transition:all .18s;
+}
+.ptab:hover{border-color:rgba(163,230,53,.45)}
+.ptab.active{background:var(--lime);color:var(--pine)}
+.player{border-radius:14px;overflow:hidden;background:linear-gradient(165deg,#eaf3e4,#dcead2);border:1px solid #cfe0c2}
+.player canvas{width:100%;height:220px}
+.pctrl{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(12,43,24,.94);color:#dcead9}
+.pbtn{width:34px;height:34px;flex:0 0 auto;border-radius:10px;background:var(--lime);color:var(--pine);display:grid;place-items:center;font-weight:800;font-size:13px}
+.pbtn:hover{filter:brightness(1.06)}
+.pspeed{background:rgba(255,255,255,.12);color:#dcead9;border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:4px 7px;font-size:11.5px;font-weight:700}
+.pspeed option{color:var(--ink)}
+.preps{margin-left:auto;font-size:11.5px;font-weight:800;color:var(--lime)}
+.preview-foot{margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#b9cdbd}
+
+/* ============ SECTIONS ============ */
+section{padding:62px 0}
+section.alt{background:#ebefe4;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 38px}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:8px}
+.sec-head h2{font-size:clamp(21px,2.8vw,30px);color:var(--pine);margin-bottom:10px}
+.sec-head p{color:var(--mut);font-size:14.5px}
+
+/* Feature cards */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);transition:transform .22s,border-color .22s}
+.card:hover{transform:translateY(-4px);border-color:#c6d4be}
+.ficon{
+  width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:22px;margin-bottom:14px;color:#fff;
+}
+.fi-green{background:linear-gradient(135deg,var(--green-hi),var(--green-deep))}
+.fi-blue{background:linear-gradient(135deg,var(--blue),var(--blue-deep))}
+.fi-orange{background:linear-gradient(135deg,var(--orange),var(--orange-deep))}
+.fi-purple{background:linear-gradient(135deg,var(--purple),#6d3fd4)}
+.card h3{font-size:16px;font-weight:800;color:var(--pine);margin-bottom:7px}
+.card p{font-size:13.5px;color:var(--mut)}
+
+/* Sports chips */
+.sport-card{display:flex;gap:14px;align-items:flex-start}
+.sport-emoji{width:50px;height:50px;flex:0 0 auto;border-radius:14px;display:grid;place-items:center;font-size:24px;background:#eef5e8;border:1px solid #d4e4c9}
+.chip{display:inline-flex;align-items:center;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;margin-top:8px}
+.chip.ok{background:#e5f5e9;color:var(--ok);border:1px solid #bfe5c8}
+.chip.blue{background:#e7eefc;color:var(--blue-deep);border:1px solid #c3d4f3}
+.chip.orange{background:#fdeee6;color:var(--orange-deep);border:1px solid #f6cdb9}
+.chip.purple{background:#f1ebfd;color:#6d28d9;border:1px solid #dccbf7}
+
+/* Pricing / Packages */
+.billing-toggle{display:inline-flex;gap:6px;padding:5px;border-radius:999px;background:var(--surface);border:1px solid var(--line);margin-top:16px}
+.btog{padding:7px 16px;border-radius:999px;font-size:12.5px;font-weight:800;color:var(--mut);transition:all .18s}
+.btog.active{background:var(--pine);color:var(--lime)}
+.plan{display:flex;flex-direction:column;position:relative}
+.plan.popular{border:2px solid var(--green);box-shadow:0 22px 44px -20px rgba(14,122,61,.38)}
+.plan-badge{
+  position:absolute;top:-12px;right:20px;background:linear-gradient(110deg,var(--orange),var(--gold));
+  color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:999px;letter-spacing:.04em;
+}
+.plan-name{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--green)}
+.plan-price{font-family:'Bungee';font-size:30px;color:var(--pine);margin:8px 0 4px;line-height:1.15}
+.plan-sub{font-size:12.5px;color:var(--mut);margin-bottom:16px}
+.plan-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;flex:1}
+.plan-list li{font-size:13.5px;display:flex;gap:8px;align-items:flex-start}
+.plan-list li.no{color:#8b978f;text-decoration:line-through}
+
+/* Feedback Form */
+.fb-box{max-width:760px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fbfcf8}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(14,122,61,.14)}
+.field .err{font-size:11.5px;color:var(--danger);margin-top:4px;display:none}
+.field.invalid input,.field.invalid textarea{border-color:var(--danger)}
+.field.invalid .err{display:block}
+
+/* Modal & Toast */
+.modal-wrap{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-wrap.open{opacity:1;pointer-events:auto}
+.mscrim{position:absolute;inset:0;background:rgba(12,26,17,.55);backdrop-filter:blur(4px)}
+.modal{position:relative;width:min(460px,100%);background:var(--surface);border-radius:20px;overflow:hidden;box-shadow:0 36px 70px -20px rgba(0,0,0,.5);padding:24px}
+.toast-zone{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:120;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{background:var(--pine);color:#eef4ec;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;border:1.5px solid var(--lime-deep);box-shadow:0 16px 34px -10px rgba(0,0,0,.45)}
+
+/* Footer */
+footer{background:var(--pine);color:#b9cdbd;padding:34px 0;border-top:1px solid rgba(163,230,53,.2)}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;font-size:13px}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap}
+.foot-links a:hover{color:var(--lime)}
+
+/* Responsive */
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);padding:12px 24px;flex-direction:column;align-items:flex-start}
+  .nav-links.open{display:flex}
+  .hambtn{display:grid}
+  .grid-4,.grid-2,.frow{grid-template-columns:1fr}
+  .guest-pill{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- THANH ĐIỀU HƯỚNG KHÁCH -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="brandline">
+      <span class="brandmark">🏅</span>
+      <div>
+        <div class="bt">SportCoach</div>
+        <div class="bs">Giáo dục thể chất</div>
+      </div>
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Điều hướng chính">
+      <a href="#chuc-nang">Chức năng</a>
+      <a href="#mon-hoc">Môn thể chất</a>
+      <a href="#goi-su-dung">Gói sử dụng</a>
+      <a href="#vai-tro">Vai trò</a>
+      <a href="#gop-y">Góp ý</a>
+    </nav>
+
+    <div class="nav-actions">
+      <span class="guest-pill" title="Bạn đang xem với vai trò Khách"><span class="dot"></span>Chế độ Khách</span>
+      <a href="login.html" class="btn btn-g btn-sm">Đăng nhập</a>
+      <a href="register.html" class="btn btn-p btn-sm">Tạo tài khoản</a>
+      <button class="hambtn" id="hamBtn" aria-label="Mở menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO + XEM THỬ ĐỘNG TÁC -->
+<section class="hero">
+  <svg class="hero-court" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+    <rect x="60" y="50" width="1080" height="500" rx="24" fill="none" stroke="#a3e635" stroke-width="2"/>
+    <line x1="600" y1="50" x2="600" y2="550" stroke="#a3e635" stroke-width="2"/>
+    <circle cx="600" cy="300" r="95" fill="none" stroke="#a3e635" stroke-width="2"/>
+  </svg>
+
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-badge">👀 Giao diện Khách · Khám phá hệ thống miễn phí</div>
+      <h1>Nền tảng <span class="hl">Giáo dục Thể chất</span> trực quan cho trường phổ thông</h1>
+      <p class="lead">
+        SportCoach giúp học sinh ôn tập đúng kỹ thuật động tác giữa các buổi học, giáo viên quản lý giáo án và chấm điểm khách quan, nhà trường theo dõi tiến độ thể lực toàn diện.
+      </p>
+      <div class="hero-cta">
+        <a href="register.html" class="btn btn-lime">Tạo tài khoản miễn phí</a>
+        <a href="login.html" class="btn btn-dark-ghost">Đăng nhập hệ thống →</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>12+</b><span>Video động tác mẫu</span></div>
+        <div><b>4 Môn</b><span>Điền kinh · Bóng đá · Bơi · Nhịp điệu</span></div>
+        <div><b>4 Vai trò</b><span>Khách · Học sinh · Giáo viên · Admin</span></div>
+      </div>
+    </div>
+
+    <!-- Xem thử clip động tác Canvas công khai (visitor-clip-preview) -->
+    <div class="preview-card" id="xem-thu">
+      <div class="preview-head">
+        <b>🎬 Xem thử động tác công khai</b>
+        <div class="preview-tabs" id="moveTabs">
+          <button class="ptab active" data-move="jumpingJacks">Jumping Jacks</button>
+          <button class="ptab" data-move="squat">Squat</button>
+          <button class="ptab" data-move="highKnees">Nâng cao đùi</button>
+          <button class="ptab" data-move="verticalJump">Bật nhảy</button>
+        </div>
+      </div>
+      <div class="player">
+        <canvas id="previewCanvas" aria-label="Mô phỏng động tác thể dục"></canvas>
+        <div class="pctrl">
+          <button class="pbtn" id="playBtn" aria-label="Phát hoặc tạm dừng">❚❚</button>
+          <label for="speedSel" style="font-size:11.5px;color:#b9cdbd">Tốc độ:</label>
+          <select class="pspeed" id="speedSel" aria-label="Tốc độ phát">
+            <option value="0.5">0.5×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.5">1.5×</option>
+            <option value="2">2×</option>
+          </select>
+          <span class="preps" id="repCounter">0 nhịp</span>
+        </div>
+      </div>
+      <div class="preview-foot">
+        <span id="moveDesc">Bật tách chân kết hợp vỗ tay qua đầu — Khởi động toàn thân.</span>
+        <a href="sportcoach.html#/student/library" style="color:var(--lime);font-weight:700">Xem đầy đủ →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SƠ LƯỢC CHỨC NĂNG CƠ BẢN -->
+<section id="chuc-nang">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Chức năng cơ bản</span>
+      <h2>Giải pháp số hóa toàn diện tiết Thể dục</h2>
+      <p>Khách có thể xem sơ lược 4 nhóm chức năng cốt lõi mà SportCoach cung cấp cho nhà trường.</p>
+    </div>
+
+    <div class="grid-4">
+      <article class="card">
+        <div class="ficon fi-green">🎬</div>
+        <h3>Thư viện Video Động tác</h3>
+        <p>Mô phỏng từng bước với trình phát tùy chỉnh tốc độ 0.5×–2×, đếm nhịp và hướng dẫn kỹ thuật chi tiết.</p>
+      </article>
+      <article class="card">
+        <div class="ficon fi-blue">📋</div>
+        <h3>Giáo án theo Tuần</h3>
+        <p>Chia rõ 3 giai đoạn: Khởi động, Vận động chính, Thả lỏng kèm sơ đồ sân tập và mục tiêu bài học.</p>
+      </article>
+      <article class="card">
+        <div class="ficon fi-orange">🏅</div>
+        <h3>Chấm điểm & Thi đấu</h3>
+        <p>Rubric 4 tiêu chí (Tư thế, Biên độ, Nhịp độ, Hoàn thành) giúp đánh giá minh bạch và tổ chức giải đấu.</p>
+      </article>
+      <article class="card">
+        <div class="ficon fi-purple">📈</div>
+        <h3>Nhật ký & Biểu đồ Thể lực</h3>
+        <p>Học sinh tự ghi buổi tập, bấm giờ và theo dõi tiến bộ qua biểu đồ đường, cột, radar bằng Canvas.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MÔN THỂ CHẤT CÔNG KHAI (visitor-sport-overview) -->
+<section class="alt" id="mon-hoc">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Chương trình giảng dạy</span>
+      <h2>Các môn Thể chất nổi bật</h2>
+      <p>Danh mục môn học tiêu chuẩn được thiết kế phù hợp cho học sinh THPT và THCS.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card sport-card">
+        <div class="sport-emoji">🏃</div>
+        <div>
+          <h3>Điền kinh</h3>
+          <p>Chạy cự ly ngắn, nâng cao đùi, bật xa tại chỗ và kỹ thuật tiếp đất an toàn.</p>
+          <span class="chip ok">Có video mô phỏng</span>
+        </div>
+      </div>
+      <div class="card sport-card">
+        <div class="sport-emoji">⚽</div>
+        <div>
+          <h3>Bóng đá</h3>
+          <p>Dẫn bóng, chuyền bóng cơ bản, phối hợp nhóm và sơ đồ vị trí trên sân tập.</p>
+          <span class="chip blue">Có giáo án theo tuần</span>
+        </div>
+      </div>
+      <div class="card sport-card">
+        <div class="sport-emoji">🏊</div>
+        <div>
+          <h3>Bơi lội</h3>
+          <p>Kỹ thuật thở nước, đạp chân ếch/sải và quy tắc an toàn dưới nước cho học sinh.</p>
+          <span class="chip orange">Kèm hướng dẫn an toàn</span>
+        </div>
+      </div>
+      <div class="card sport-card">
+        <div class="sport-emoji">🤸</div>
+        <div>
+          <h3>Thể dục nhịp điệu & Thể lực</h3>
+          <p>Jumping Jacks, Squat, Lunge, chống đẩy và bài tập thả lỏng phục hồi cơ bắp.</p>
+          <span class="chip purple">Phù hợp tự tập tại nhà</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÁC GÓI SỬ DỤNG -->
+<section id="goi-su-dung">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Bảng giá & Triển khai</span>
+      <h2>Các gói sử dụng SportCoach</h2>
+      <p>Lựa chọn gói phù hợp cho nhu cầu trải nghiệm cá nhân, lớp học hoặc toàn trường.</p>
+      <div class="billing-toggle" role="group" aria-label="Chu kỳ thanh toán">
+        <button class="btog active" data-cycle="semester">Theo Học kỳ</button>
+        <button class="btog" data-cycle="year">Theo Năm học (-20%)</button>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <!-- Gói 1 -->
+      <div class="card plan">
+        <div class="plan-name">Gói Cơ bản (Khách)</div>
+        <div class="plan-price" data-semester="0đ" data-year="0đ">0đ</div>
+        <div class="plan-sub">Miễn phí trọn đời · Không cần tài khoản</div>
+        <ul class="plan-list">
+          <li>✔ Xem giới thiệu các môn thể chất</li>
+          <li>✔ Xem thử 4 video động tác công khai</li>
+          <li>✔ Điều chỉnh tốc độ phát 0.5× – 2×</li>
+          <li>✔ Gửi góp ý cải thiện bài tập</li>
+          <li class="no">✖ Lưu nhật ký luyện tập cá nhân</li>
+          <li class="no">✖ Chấm điểm Rubric & Giáo án lớp</li>
+        </ul>
+        <a href="#xem-thu" class="btn btn-g">Đang sử dụng (Khách)</a>
+      </div>
+
+      <!-- Gói 2 -->
+      <div class="card plan popular">
+        <span class="plan-badge">Phổ biến nhất</span>
+        <div class="plan-name">Gói Lớp học / Trường học</div>
+        <div class="plan-price" data-semester="490.000đ" data-year="790.000đ">490.000đ</div>
+        <div class="plan-sub" id="subSchool">Mỗi lớp / học kỳ · Tối đa 50 học sinh</div>
+        <ul class="plan-list">
+          <li>✔ Đầy đủ quyền của Gói Cơ bản</li>
+          <li>✔ Giáo án tuần (Khởi động · Chính · Thả lỏng)</li>
+          <li>✔ Thư viện 12+ video & tùy biến động tác</li>
+          <li>✔ Nhật ký luyện tập + biểu đồ tiến độ Canvas</li>
+          <li>✔ Chấm điểm kỹ thuật Rubric 4 tiêu chí</li>
+          <li class="no">✖ Tổ chức giải đấu liên khối</li>
+        </ul>
+        <button class="btn btn-p" data-plan="Gói Lớp học / Trường học">Đăng ký dùng thử gói này</button>
+      </div>
+
+      <!-- Gói 3 -->
+      <div class="card plan">
+        <div class="plan-name">Gói Toàn trường & Thi đấu</div>
+        <div class="plan-price" data-semester="1.290.000đ" data-year="1.990.000đ">1.290.000đ</div>
+        <div class="plan-sub" id="subPro">Không giới hạn lớp · Hỗ trợ quản trị viên</div>
+        <ul class="plan-list">
+          <li>✔ Toàn bộ tính năng Gói Lớp học</li>
+          <li>✔ Tổ chức thi đấu & bảng xếp hạng thành tích</li>
+          <li>✔ Trang Quản trị viên: phân quyền, cấu hình môn</li>
+          <li>✔ Thống kê & so sánh chỉ số thể lực toàn khối</li>
+          <li>✔ Hỗ trợ nhập liệu & xuất báo cáo học kỳ</li>
+          <li>✔ Tích hợp đồng bộ dữ liệu tập trung</li>
+        </ul>
+        <button class="btn btn-o" data-plan="Gói Toàn trường & Thi đấu">Liên hệ triển khai</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 VAI TRÒ TRONG HỆ THỐNG -->
+<section class="alt" id="vai-tro">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Phân quyền rõ ràng</span>
+      <h2>4 Vai trò trong SportCoach</h2>
+      <p>Mỗi đối tượng có không gian làm việc riêng biệt, trực quan và dễ sử dụng.</p>
+    </div>
+    <div class="grid-4">
+      <div class="card">
+        <h3>🧑‍💼 Khách</h3>
+        <p>Xem giới thiệu môn thể chất, xem thử video công khai, tìm hiểu gói sử dụng và gửi góp ý.</p>
+      </div>
+      <div class="card">
+        <h3>🎓 Học sinh</h3>
+        <p>Xem giáo án tuần, ôn tập video, ghi nhật ký luyện tập và xem biểu đồ tiến bộ thể lực.</p>
+      </div>
+      <div class="card">
+        <h3>🧑‍🏫 Giáo viên</h3>
+        <p>Soạn giáo án tuần, quản lý thư viện video, chấm điểm kỹ thuật học sinh và tổ chức thi đấu.</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Quản trị viên</h3>
+        <p>Quản lý tài khoản người dùng, phân khối/lớp và cấu hình danh mục môn thể thao của trường.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM GÓP Ý KHÁCH (visitor-sport-feedback) -->
+<section id="gop-y">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Kênh tương tác khách</span>
+      <h2>Góp ý hoặc Đăng ký tư vấn</h2>
+      <p>Bạn muốn đề xuất thêm môn học, động tác mới hoặc dùng thử cho trường? Hãy gửi tin nhắn cho chúng tôi.</p>
+    </div>
+
+    <form class="fb-box" id="feedbackForm" novalidate>
+      <div class="frow">
+        <div class="field" id="fNameWrap">
+          <label for="fName">Họ và tên *</label>
+          <input id="fName" type="text" placeholder="Ví dụ: Nguyễn Văn An">
+          <div class="err">Vui lòng nhập họ tên (tối thiểu 2 ký tự).</div>
+        </div>
+        <div class="field" id="fRoleWrap">
+          <label for="fTopic">Chủ đề quan tâm</label>
+          <select id="fTopic">
+            <option value="Góp ý môn học">Góp ý môn thể chất / bài tập</option>
+            <option value="Tư vấn gói Lớp học">Tư vấn gói Lớp học</option>
+            <option value="Tư vấn gói Toàn trường">Tư vấn gói Toàn trường & Thi đấu</option>
+            <option value="Khác">Câu hỏi khác</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" id="fMsgWrap">
+        <label for="fMsg">Nội dung góp ý *</label>
+        <textarea id="fMsg" placeholder="Nhập góp ý hoặc nhu cầu sử dụng của bạn..."></textarea>
+        <div class="err">Vui lòng nhập nội dung góp ý (tối thiểu 10 ký tự).</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <span style="font-size:12.5px;color:var(--mut)">Dữ liệu demo lưu cục bộ trên trình duyệt của bạn.</span>
+        <button type="submit" class="btn btn-p">Gửi góp ý</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <strong style="color:#fff">🏅 SportCoach</strong> — Nhóm Phúc Lộc Thọ (BTL 32 · CSE122)
+    </div>
+    <div class="foot-links">
+      <a href="#chuc-nang">Chức năng</a>
+      <a href="#goi-su-dung">Gói sử dụng</a>
+      <a href="login.html">Đăng nhập</a>
+      <a href="register.html">Tạo tài khoản</a>
+      <a href="README.md">Tài liệu README</a>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL ĐĂNG KÝ GÓI -->
+<div class="modal-wrap" id="planModal" aria-hidden="true">
+  <div class="mscrim" id="modalScrim"></div>
+  <div class="modal">
+    <h3 style="font-size:18px;font-weight:800;color:var(--pine);margin-bottom:6px">Đăng ký trải nghiệm gói</h3>
+    <p id="modalPlanName" style="font-size:13.5px;color:var(--green);font-weight:700;margin-bottom:14px"></p>
+    <p style="font-size:13.5px;color:var(--mut);margin-bottom:18px">
+      Bạn có thể trải nghiệm ngay toàn bộ giao diện Giáo viên & Học sinh trong bản Demo tích hợp, hoặc để lại thông tin ở mục Góp ý bên dưới.
+    </p>
+    <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+      <button class="btn btn-g btn-sm" id="closeModalBtn">Đóng</button>
+      <a href="login.html" class="btn btn-g btn-sm">Đăng nhập</a>
+      <a href="register.html" class="btn btn-p btn-sm">Tạo tài khoản →</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+// 1. Mobile Menu Toggle
+const hamBtn = document.getElementById('hamBtn');
+const navLinks = document.getElementById('navLinks');
+hamBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+// 2. Toast helper
+function showToast(msg) {
+  const z = document.getElementById('toastZone');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  z.appendChild(t);
+  setTimeout(() => t.remove(), 2800);
+}
+
+// 3. Billing cycle toggle (Học kỳ / Năm học)
+const cycleBtns = document.querySelectorAll('.btog');
+const prices = document.querySelectorAll('.plan-price');
+cycleBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    cycleBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const c = btn.dataset.cycle;
+    prices.forEach(p => { p.textContent = p.dataset[c]; });
+    document.getElementById('subSchool').textContent =
+      c === 'year' ? 'Mỗi lớp / năm học · Tiết kiệm 20%' : 'Mỗi lớp / học kỳ · Tối đa 50 học sinh';
+    document.getElementById('subPro').textContent =
+      c === 'year' ? 'Không giới hạn lớp / năm học · Hỗ trợ Admin' : 'Không giới hạn lớp · Hỗ trợ quản trị viên';
+  });
+});
+
+// 4. Plan Modal
+const planModal = document.getElementById('planModal');
+const modalPlanName = document.getElementById('modalPlanName');
+document.querySelectorAll('[data-plan]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    modalPlanName.textContent = 'Gói đã chọn: ' + btn.dataset.plan;
+    planModal.classList.add('open');
+    planModal.setAttribute('aria-hidden', 'false');
+  });
+});
+function closeModal() {
+  planModal.classList.remove('open');
+  planModal.setAttribute('aria-hidden', 'true');
+}
+document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+document.getElementById('modalScrim').addEventListener('click', closeModal);
+
+// 5. Feedback Form Validation
+document.getElementById('feedbackForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const nameEl = document.getElementById('fName');
+  const msgEl = document.getElementById('fMsg');
+  const topicEl = document.getElementById('fTopic');
+  const nameWrap = document.getElementById('fNameWrap');
+  const msgWrap = document.getElementById('fMsgWrap');
+
+  let ok = true;
+  if (nameEl.value.trim().length < 2) { nameWrap.classList.add('invalid'); ok = false; }
+  else nameWrap.classList.remove('invalid');
+
+  if (msgEl.value.trim().length < 10) { msgWrap.classList.add('invalid'); ok = false; }
+  else msgWrap.classList.remove('invalid');
+
+  if (!ok) return;
+
+  try {
+    const list = JSON.parse(localStorage.getItem('sportcoach_guest_feedback') || '[]');
+    list.unshift({ name: nameEl.value.trim(), topic: topicEl.value, msg: msgEl.value.trim(), at: new Date().toISOString() });
+    localStorage.setItem('sportcoach_guest_feedback', JSON.stringify(list));
+  } catch (err) {}
+
+  e.target.reset();
+  showToast('✔ Cảm ơn bạn! Góp ý của Khách đã được ghi nhận.');
+});
+
+// 6. Canvas Stick-Figure Preview Player (tái sử dụng từ sportcoach.html)
+const BASE={head:[100,36],neck:[100,50],hip:[100,104],le:[83,77],lh:[77,104],re:[117,77],rh:[123,104],lk:[93,140],lf:[89,176],rk:[107,140],rf:[111,176]};
+const PKEYS=Object.keys(BASE);
+const P=o=>Object.assign({},BASE,o);
+const JACK=P({head:[100,30],neck:[100,44],hip:[100,98],le:[72,36],lh:[54,14],re:[128,36],rh:[146,14],lk:[80,138],lf:[64,176],rk:[120,138],rf:[136,176]});
+const SQ_UP=P({le:[80,68],lh:[58,64],re:[120,68],rh:[142,64]});
+const SQ_DN=P({head:[100,72],neck:[100,86],hip:[100,136],le:[79,90],lh:[57,84],re:[121,90],rh:[143,84],lk:[79,150],lf:[85,176],rk:[121,150],rf:[115,176]});
+const KNEE_L=P({head:[100,34],neck:[100,48],hip:[100,102],le:[78,72],lh:[64,90],re:[118,66],rh:[132,52],lk:[94,112],lf:[86,134],rk:[107,142],rf:[111,176]});
+const KNEE_R=P({head:[100,34],neck:[100,48],hip:[100,102],le:[82,66],lh:[68,52],re:[122,72],rh:[136,90],lk:[93,142],lf:[89,176],rk:[106,112],rf:[114,134]});
+const JUMP=P({head:[100,22],neck:[100,36],hip:[100,84],le:[76,52],lh:[60,34],re:[124,52],rh:[140,34],lk:[88,112],lf:[80,136],rk:[112,112],rf:[120,136]});
+
+const MOVES = {
+  jumpingJacks: { frames: [BASE, JACK], tempo: 1.1, desc: 'Bật tách chân kết hợp vỗ tay qua đầu — Khởi động toàn thân.' },
+  squat:        { frames: [SQ_UP, SQ_DN], tempo: 2.2, desc: 'Đứng lên ngồi xuống giữ lưng thẳng, gối không vượt mũi chân.' },
+  highKnees:    { frames: [BASE, KNEE_L, BASE, KNEE_R], tempo: 0.9, desc: 'Chạy tại chỗ nâng đùi vuông góc ngang hông, đánh tay nhịp nhàng.' },
+  verticalJump: { frames: [BASE, SQ_DN, JUMP, BASE], tempo: 1.2, desc: 'Khuỵu gối lấy đà bật cao, tiếp đất êm giảm chấn.' }
+};
+
+const cv = document.getElementById('previewCanvas');
+const ctx = cv.getContext('2d');
+let curMove = MOVES.jumpingJacks;
+let playing = true, speed = 1, t = 0, last = performance.now();
+
+const easeIO = x => x < .5 ? 2*x*x : 1 - Math.pow(-2*x+2, 2)/2;
+function lerpPose(a, b, f) {
+  const o = {};
+  for (const k of PKEYS) o[k] = [a[k][0] + (b[k][0]-a[k][0])*f, a[k][1] + (b[k][1]-a[k][1])*f];
+  return o;
+}
+
+function resizeCanvas() {
+  const r = cv.getBoundingClientRect();
+  if (r.width < 2) return;
+  const d = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = Math.round(r.width * d);
+  cv.height = Math.round(r.height * d);
+  ctx.setTransform(d, 0, 0, d, 0, 0);
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function drawLoop(now) {
+  const dt = Math.min((now - last) / 1000, .1);
+  last = now;
+  if (playing) t += dt * speed;
+
+  const r = cv.getBoundingClientRect();
+  const w = r.width, h = r.height;
+  if (w > 2) {
+    const p = (t % curMove.tempo) / curMove.tempo;
+    const n = curMove.frames.length;
+    const segIdx = Math.floor(p * n) % n;
+    const pose = lerpPose(curMove.frames[segIdx], curMove.frames[(segIdx + 1) % n], easeIO(p * n - Math.floor(p * n)));
+    const s = Math.min(w, h) / 215, ox = (w - 200*s)/2, oy = (h - 200*s)/2;
+    const X = pt => [ox + pt[0]*s, oy + pt[1]*s];
+
+    ctx.clearRect(0, 0, w, h);
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, '#f0f7e8'); g.addColorStop(1, '#dcead2');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+
+    ctx.strokeStyle = 'rgba(14,122,61,.16)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(ox + 100*s, oy + 186*s, 70*s, Math.PI, 0); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, oy + 186*s); ctx.lineTo(w, oy + 186*s); ctx.stroke();
+    ctx.fillStyle = 'rgba(18,36,24,.16)';
+    ctx.beginPath(); ctx.ellipse(ox + 100*s, oy + 184*s, 44*s, 7*s, 0, 0, Math.PI*2); ctx.fill();
+
+    const drawSeg = (a, b, cw, col) => {
+      ctx.strokeStyle = col; ctx.lineWidth = cw*s; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath(); const A = X(a); ctx.moveTo(A[0], A[1]);
+      for (const pt of b) { const B = X(pt); ctx.lineTo(B[0], B[1]); }
+      ctx.stroke();
+    };
+    drawSeg(pose.hip, [pose.lk, pose.lf], 7, '#0e7a3d');
+    drawSeg(pose.hip, [pose.rk, pose.rf], 7, '#0e7a3d');
+    drawSeg(pose.neck, [pose.hip], 8.5, '#123524');
+    drawSeg(pose.neck, [pose.le, pose.lh], 6.5, '#0e7a3d');
+    drawSeg(pose.neck, [pose.re, pose.rh], 6.5, '#0e7a3d');
+
+    const H = X(pose.head);
+    ctx.fillStyle = '#123524'; ctx.beginPath(); ctx.arc(H[0], H[1], 11.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#a3e635'; ctx.lineWidth = 3.4*s; ctx.beginPath(); ctx.arc(H[0], H[1], 11.5*s, -2.4, -0.7); ctx.stroke();
+    const HIP = X(pose.hip);
+    ctx.fillStyle = '#f4632e'; ctx.beginPath(); ctx.arc(HIP[0], HIP[1], 3.6*s, 0, Math.PI*2); ctx.fill();
+
+    document.getElementById('repCounter').textContent = Math.floor(t / curMove.tempo) + ' nhịp';
+  }
+  requestAnimationFrame(drawLoop);
+}
+requestAnimationFrame(drawLoop);
+
+document.getElementById('playBtn').addEventListener('click', e => {
+  playing = !playing;
+  e.target.textContent = playing ? '❚❚' : '▶';
+});
+document.getElementById('speedSel').addEventListener('change', e => {
+  speed = parseFloat(e.target.value) || 1;
+});
+document.querySelectorAll('#moveTabs .ptab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('#moveTabs .ptab').forEach(x => x.classList.remove('active'));
+    tab.classList.add('active');
+    curMove = MOVES[tab.dataset.move];
+    t = 0;
+    document.getElementById('moveDesc').textContent = curMove.desc;
+  });
+});
+</script>
+</body>
+</html>

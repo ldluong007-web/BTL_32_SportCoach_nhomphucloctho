@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportCoach — Đăng nhập</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bungee&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0e7a3d; --green-hi:#14934b; --green-deep:#0a5c2e;
+  --pine:#0c2b18; --pine-2:#123a22;
+  --lime:#a3e635; --lime-deep:#65a30d;
+  --blue:#1d6fe0; --orange:#f4632e; --gold:#f5b301;
+  --ok:#16a34a; --danger:#e11d48;
+  --paper:#f3f4ee; --surface:#ffffff; --ink:#182420; --mut:#5c6b62; --line:#e2e6da;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;min-height:100vh;color:var(--ink);background:var(--paper)}
+button,input,select{font-family:inherit}
+a{color:inherit;text-decoration:none}
+h1,h2,.bt{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400}
+
+.auth-shell{
+  min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr;
+  background:
+    radial-gradient(900px 560px at 85% -10%, rgba(163,230,53,.14), transparent 60%),
+    linear-gradient(150deg,var(--pine) 0%,var(--pine-2) 55%,#0d3320 100%);
+}
+.auth-left{
+  padding:48px 52px;color:#eef4ec;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;
+}
+.brandline{display:flex;align-items:center;gap:12px}
+.brandmark{width:46px;height:46px;border-radius:14px;background:linear-gradient(140deg,var(--lime),var(--green-hi));display:grid;place-items:center;font-size:23px;box-shadow:0 10px 24px -8px rgba(163,230,53,.55)}
+.bt{font-size:19px;line-height:1.1;color:#fff}
+.bs{font-size:10.5px;color:#9fc3a8;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.auth-left h1{font-size:clamp(24px,3vw,36px);line-height:1.25;margin:28px 0 14px}
+.auth-left h1 .hl{color:var(--lime)}
+.auth-left .lead{color:#b9cdbd;font-size:14.5px;max-width:460px;line-height:1.65}
+.perks{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.perk{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#d6e8d4;font-weight:600}
+.perk span{width:26px;height:26px;border-radius:8px;background:rgba(163,230,53,.16);color:var(--lime);display:grid;place-items:center;font-size:13px}
+.back-home{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#cfe6c2;padding:9px 14px;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);align-self:flex-start;transition:all .18s}
+.back-home:hover{border-color:var(--lime);color:var(--lime)}
+
+.auth-right{
+  display:flex;align-items:center;justify-content:center;padding:36px 24px;
+  background:var(--paper);border-radius:28px 0 0 28px;
+}
+.auth-card{width:min(440px,100%)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;border-radius:14px;background:#e6eae0;margin-bottom:24px}
+.tab{padding:10px;border-radius:10px;text-align:center;font-weight:800;font-size:13.5px;color:var(--mut);transition:all .18s}
+.tab.active{background:var(--surface);color:var(--pine);box-shadow:0 4px 12px -4px rgba(18,36,24,.18)}
+
+.auth-card h2{font-size:22px;color:var(--pine);margin-bottom:6px}
+.auth-sub{font-size:13.5px;color:var(--mut);margin-bottom:22px}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.field input,.field select{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-size:14px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(14,122,61,.14)}
+.field .err{font-size:11.5px;color:var(--danger);margin-top:4px;display:none}
+.field.invalid input{border-color:var(--danger)}
+.field.invalid .err{display:block}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  padding:13px 18px;border-radius:13px;font-weight:800;font-size:14px;cursor:pointer;border:none;transition:all .18s;
+}
+.btn-p{background:linear-gradient(110deg,var(--green-hi),var(--green-deep));color:#fff;box-shadow:0 8px 20px -8px rgba(14,122,61,.65)}
+.btn-p:hover{filter:brightness(1.06);transform:translateY(-1px)}
+
+.divider{display:flex;align-items:center;gap:12px;margin:22px 0 16px;font-size:11.5px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qbtn{
+  padding:12px;border-radius:13px;border:1.5px solid var(--line);background:var(--surface);
+  text-align:left;cursor:pointer;transition:all .18s;
+}
+.qbtn:hover{border-color:var(--green);transform:translateY(-2px)}
+.qbtn b{display:block;font-size:13px;color:var(--pine);margin-bottom:2px}
+.qbtn span{font-size:11.5px;color:var(--mut)}
+
+.form-foot{margin-top:18px;text-align:center;font-size:13px;color:var(--mut)}
+.form-foot a{color:var(--green);font-weight:800}
+.form-foot a:hover{text-decoration:underline}
+
+.toast-zone{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:120}
+.toast{background:var(--pine);color:#eef4ec;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;border:1.5px solid var(--lime-deep);box-shadow:0 16px 34px -10px rgba(0,0,0,.45)}
+
+@media (max-width:900px){
+  .auth-shell{grid-template-columns:1fr}
+  .auth-left{padding:32px 24px}
+  .auth-right{border-radius:24px 24px 0 0;padding:32px 20px}
+}
+</style>
+</head>
+<body>
+<div class="auth-shell">
+  <aside class="auth-left">
+    <div>
+      <a href="index.html" class="brandline">
+        <span class="brandmark">🏅</span>
+        <div>
+          <div class="bt">SportCoach</div>
+          <div class="bs">Giáo dục thể chất</div>
+        </div>
+      </a>
+      <h1>Chào mừng trở lại <span class="hl">SportCoach</span></h1>
+      <p class="lead">Đăng nhập để truy cập giáo án tuần, thư viện video động tác tương tác, nhật ký luyện tập và bảng chấm điểm kỹ thuật.</p>
+      <div class="perks">
+        <div class="perk"><span>🎬</span> Ôn tập 12+ động tác thể chất với tốc độ tùy chỉnh</div>
+        <div class="perk"><span>📈</span> Theo dõi tiến độ thể lực qua biểu đồ Canvas</div>
+        <div class="perk"><span>🏅</span> Chấm điểm Rubric 4 tiêu chí minh bạch</div>
+      </div>
+    </div>
+    <a href="index.html" class="back-home" style="margin-top:28px">← Quay lại Trang chủ Khách</a>
+  </aside>
+
+  <main class="auth-right">
+    <div class="auth-card">
+      <div class="tabs">
+        <a href="login.html" class="tab active">Đăng nhập</a>
+        <a href="register.html" class="tab">Tạo tài khoản</a>
+      </div>
+
+      <h2>Đăng nhập</h2>
+      <p class="auth-sub">Nhập thông tin tài khoản của bạn để vào hệ thống.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="field" id="emailWrap">
+          <label for="email">Email hoặc Tên đăng nhập *</label>
+          <input id="email" type="text" placeholder="Ví dụ: thuha.10a1@school.edu.vn">
+          <div class="err">Vui lòng nhập email hoặc tên đăng nhập.</div>
+        </div>
+        <div class="field" id="passWrap">
+          <label for="password">Mật khẩu *</label>
+          <input id="password" type="password" placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)">
+          <div class="err">Mật khẩu phải có ít nhất 6 ký tự.</div>
+        </div>
+        <div class="field">
+          <label for="role">Vai trò truy cập</label>
+          <select id="role">
+            <option value="student">Học sinh</option>
+            <option value="teacher">Giáo viên</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-p">Đăng nhập vào hệ thống →</button>
+      </form>
+
+      <div class="divider">Hoặc dùng thử nhanh</div>
+      <div class="quick-grid">
+        <button type="button" class="qbtn" data-quick="teacher">
+          <b>🧑‍🏫 Giáo viên</b>
+          <span>Trần Minh Đức · Quản lý lớp</span>
+        </button>
+        <button type="button" class="qbtn" data-quick="student">
+          <b>🎓 Học sinh</b>
+          <span>Nguyễn Thu Hà · Lớp 10A1</span>
+        </button>
+      </div>
+
+      <div class="form-foot">
+        Chưa có tài khoản? <a href="register.html">Tạo tài khoản mới</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+function showToast(msg) {
+  const z = document.getElementById('toastZone');
+  z.innerHTML = '<div class="toast">' + msg + '</div>';
+  setTimeout(() => { z.innerHTML = ''; }, 2600);
+}
+
+function enterDemo(role, customName) {
+  try {
+    const key = 'sportcoach_db_v1';
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const db = JSON.parse(raw);
+      db.session = { role };
+      if (customName && db.users && db.users[role]) {
+        db.users[role].name = customName;
+      }
+      localStorage.setItem(key, JSON.stringify(db));
+    }
+  } catch (e) {}
+  window.location.href = 'sportcoach.html#/' + role + '/home';
+}
+
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const pass = document.getElementById('password').value;
+  let role = document.getElementById('role').value;
+  const emailWrap = document.getElementById('emailWrap');
+  const passWrap = document.getElementById('passWrap');
+
+  let ok = true;
+  if (email.length < 3) { emailWrap.classList.add('invalid'); ok = false; }
+  else emailWrap.classList.remove('invalid');
+
+  if (pass.length < 6) { passWrap.classList.add('invalid'); ok = false; }
+  else passWrap.classList.remove('invalid');
+
+  if (!ok) return;
+
+  let customName = null;
+  try {
+    const users = JSON.parse(localStorage.getItem('sportcoach_users') || '[]');
+    const found = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (found) {
+      if (found.password !== pass) {
+        passWrap.classList.add('invalid');
+        passWrap.querySelector('.err').textContent = 'Mật khẩu không chính xác.';
+        return;
+      }
+      role = found.role;
+      customName = found.name;
+    }
+  } catch (err) {}
+
+  showToast('✔ Đăng nhập thành công! Đang chuyển hướng...');
+  setTimeout(() => enterDemo(role, customName), 650);
+});
+
+document.querySelectorAll('[data-quick]').forEach(btn => {
+  btn.addEventListener('click', () => enterDemo(btn.dataset.quick));
+});
+</script>
+</body>
+</html>
