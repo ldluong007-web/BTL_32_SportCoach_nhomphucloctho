@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportCoach — Cổng Quản trị viên (Nội bộ)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bungee&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0e7a3d; --green-hi:#14934b; --green-deep:#0a5c2e;
+  --pine:#0c2b18; --pine-2:#123a22;
+  --lime:#a3e635; --lime-deep:#65a30d;
+  --blue:#1d6fe0; --orange:#f4632e; --gold:#f5b301; --purple:#8b5cf6;
+  --ok:#16a34a; --warn:#f59e0b; --danger:#e11d48;
+  --paper:#f3f4ee; --surface:#ffffff; --ink:#182420; --mut:#5c6b62; --line:#e2e6da;
+  --side-w:248px; --top-h:66px;
+  --shadow:0 14px 34px -18px rgba(18,36,24,.35);
+  --r:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:14.5px;line-height:1.55}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer;border:none;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+h1,h2,.bt{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400}
+
+/* ============ ADMIN LOGIN GATE (ẨN) ============ */
+.gate{
+  min-height:100vh;display:grid;place-items:center;padding:24px;
+  background:
+    radial-gradient(800px 500px at 80% 0%, rgba(163,230,53,.12), transparent 60%),
+    linear-gradient(155deg,#081d10 0%,var(--pine) 55%,#0e2d1b 100%);
+}
+.gate-card{
+  width:min(430px,100%);background:var(--surface);border-radius:22px;padding:30px;
+  box-shadow:0 36px 80px -24px rgba(0,0,0,.6);
+}
+.gate-badge{
+  display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:#fdeee6;color:#c94a1c;border:1px solid #f6cdb9;margin-bottom:14px;
+}
+.gate-card h1{font-size:21px;color:var(--pine);margin-bottom:6px}
+.gate-sub{font-size:13px;color:var(--mut);margin-bottom:20px}
+.demo-hint{
+  background:#f1f6ec;border:1px dashed #b9d4a6;border-radius:12px;padding:10px 13px;
+  font-size:12px;color:var(--pine-2);margin-bottom:18px;line-height:1.55;
+}
+
+/* ============ SHELL ============ */
+.shell{min-height:100vh;display:none}
+.shell.active{display:block}
+.side{
+  position:fixed;inset:0 auto 0 0;width:var(--side-w);z-index:60;display:flex;flex-direction:column;
+  background:linear-gradient(175deg,var(--pine) 0%,var(--pine-2) 70%,#0d3320 100%);color:#dcead9;
+  border-right:1px solid rgba(163,230,53,.15);transition:transform .28s;
+}
+.brandline{padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px dashed rgba(163,230,53,.2)}
+.brandmark{width:40px;height:40px;border-radius:12px;background:linear-gradient(140deg,var(--lime),var(--green-hi));display:grid;place-items:center;font-size:20px}
+.bt{font-size:16px;color:#fff;line-height:1.1}
+.bs{font-size:9.5px;color:#9fc3a8;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.side-role{margin:16px 16px 6px;padding:11px 13px;border-radius:13px;display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.side-role .av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;color:#fff;background:linear-gradient(140deg,var(--purple),#5b21b6);flex:0 0 auto}
+.side-role b{font-size:13px;display:block}
+.side-role span{font-size:11px;color:#9fc3a8}
+.side nav{padding:12px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
+.navlabel{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#7fa587;padding:10px 10px 4px}
+.snav{
+  display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:12px;font-weight:600;font-size:13.5px;
+  color:#c4d8c2;text-align:left;transition:all .18s;position:relative;
+}
+.snav:hover{background:rgba(163,230,53,.1);color:#fff}
+.snav.active{background:linear-gradient(100deg,var(--green-hi),var(--green-deep));color:#fff}
+.snav.active::before{content:"";position:absolute;left:-14px;top:20%;bottom:20%;width:4px;border-radius:0 4px 4px 0;background:var(--lime)}
+.snav .badge{margin-left:auto;background:var(--orange);color:#fff;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px}
+.side-foot{padding:14px 16px;border-top:1px dashed rgba(163,230,53,.2)}
+.logout-btn{display:flex;width:100%;gap:9px;align-items:center;padding:10px 12px;border-radius:11px;font-weight:700;font-size:13px;color:#f0b9c4}
+.logout-btn:hover{background:rgba(225,29,72,.16)}
+
+.mainwrap{margin-left:var(--side-w);min-height:100vh;display:flex;flex-direction:column}
+.topbar{
+  position:sticky;top:0;z-index:50;height:var(--top-h);display:flex;align-items:center;gap:14px;padding:0 26px;
+  background:rgba(243,244,238,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+}
+.topbar .crumb{font-size:12px;color:var(--mut);font-weight:600}
+.topbar .crumb b{color:var(--ink);font-size:14.5px;display:block}
+.hambtn{display:none;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);place-items:center;font-size:18px}
+.page{padding:26px;max-width:1200px;width:100%;margin:0 auto}
+
+/* ============ COMPONENTS ============ */
+.pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.pagehead h2{font-size:clamp(20px,2.2vw,26px);color:var(--pine)}
+.pagehead .sub{color:var(--mut);font-size:13.5px;margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{border-radius:var(--r);padding:20px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.stat-card::after{content:"";position:absolute;right:-20px;top:-20px;width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.14)}
+.stat-card .si{font-size:22px;margin-bottom:8px}
+.stat-card b{font-family:'Bungee';font-size:28px;display:block;line-height:1.1}
+.stat-card span{font-size:12.5px;font-weight:600;opacity:.92}
+.sc-green{background:linear-gradient(130deg,#14934b,#0a5c2e)}
+.sc-blue{background:linear-gradient(130deg,#3b83ea,#1554ad)}
+.sc-orange{background:linear-gradient(130deg,#f4763e,#c94a1c)}
+.sc-purple{background:linear-gradient(130deg,#9d70f8,#6d3fd4)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.search{flex:1;min-width:200px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-size:13.5px}
+.search:focus,select.fsel:focus{outline:none;border-color:var(--green)}
+select.fsel{padding:10px 13px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;font-size:13px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 18px;border-radius:12px;font-weight:800;font-size:13px;transition:all .18s;border:1.5px solid transparent}
+.btn-p{background:linear-gradient(110deg,var(--green-hi),var(--green-deep));color:#fff}
+.btn-p:hover{filter:brightness(1.06)}
+.btn-g{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-g:hover{border-color:var(--green);color:var(--green)}
+.btn-d{background:#fdf0f3;border-color:#f6c6d2;color:var(--danger)}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:9px}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;padding:11px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);border-bottom:2px solid var(--line)}
+td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+
+.chip{display:inline-flex;align-items:center;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px}
+.chip.ok{background:#e5f5e9;color:var(--ok);border:1px solid #bfe5c8}
+.chip.warn{background:#fdf3e0;color:#b45309;border:1px solid #f3ddb0}
+.chip.danger{background:#fdeef2;color:var(--danger);border:1px solid #f5c3cf}
+.chip.blue{background:#e7eefc;color:#1554ad;border:1px solid #c3d4f3}
+.chip.orange{background:#fdeee6;color:#c94a1c;border:1px solid #f6cdb9}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;padding:10px 13px;border-radius:11px;border:1.5px solid var(--line);background:#fbfcf8;font-size:14px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green)}
+.field .err{font-size:11.5px;color:var(--danger);margin-top:4px;display:none}
+.field.invalid input{border-color:var(--danger)}
+.field.invalid .err{display:block}
+
+/* Modal & Toast */
+.modal-wrap{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-wrap.open{opacity:1;pointer-events:auto}
+.mscrim{position:absolute;inset:0;background:rgba(12,26,17,.55);backdrop-filter:blur(4px)}
+.modal{position:relative;width:min(480px,100%);background:var(--surface);border-radius:20px;padding:24px;box-shadow:0 36px 70px -20px rgba(0,0,0,.5)}
+.toast-zone{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:120}
+.toast{background:var(--pine);color:#eef4ec;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;border:1.5px solid var(--lime-deep)}
+
+.side-scrim{display:none;position:fixed;inset:0;z-index:55;background:rgba(12,43,24,.45)}
+.side-scrim.show{display:block}
+
+@media (max-width:920px){
+  .side{transform:translateX(-100%)}
+  .side.open{transform:none}
+  .mainwrap{margin-left:0}
+  .hambtn{display:grid}
+  .grid-2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- CỔNG ĐĂNG NHẬP QUẢN TRỊ VIÊN (TRUY CẬP TRỰC TIẾP QUA admin.html, ẨN KHỎI TRANG CHỦ & LOGIN CHUNG) -->
+<section class="gate" id="adminGate">
+  <div class="gate-card">
+    <div class="gate-badge">🛡️ Khu vực Quản trị viên · Nội bộ</div>
+    <h1>Đăng nhập Admin</h1>
+    <p class="gate-sub">Cổng quản trị hệ thống SportCoach (không hiển thị công khai trên trang chủ).</p>
+
+    <div class="demo-hint">
+      <b>Tài khoản quản trị mẫu:</b><br>
+      Email: <code>admin@sportcoach.edu.vn</code> · Mật khẩu: <code>admin123</code>
+    </div>
+
+    <form id="adminLoginForm" novalidate>
+      <div class="field" id="aEmailWrap">
+        <label for="aEmail">Email quản trị</label>
+        <input id="aEmail" type="email" value="admin@sportcoach.edu.vn" placeholder="admin@sportcoach.edu.vn">
+        <div class="err">Email quản trị không hợp lệ.</div>
+      </div>
+      <div class="field" id="aPassWrap">
+        <label for="aPass">Mật khẩu</label>
+        <input id="aPass" type="password" value="admin123" placeholder="Nhập mật khẩu quản trị">
+        <div class="err">Sai mật khẩu quản trị.</div>
+      </div>
+      <button type="submit" class="btn btn-p" style="width:100%;padding:13px">Mở bảng điều khiển Admin →</button>
+    </form>
+  </div>
+</section>
+
+<!-- GIAO DIỆN QUẢN TRỊ VIÊN -->
+<div class="shell" id="adminShell">
+  <div class="side-scrim" id="sideScrim"></div>
+  <aside class="side" id="adminSide">
+    <div class="brandline">
+      <span class="brandmark">🛡️</span>
+      <div>
+        <div class="bt">SportCoach</div>
+        <div class="bs">Admin Console</div>
+      </div>
+    </div>
+    <div class="side-role">
+      <div class="av">AD</div>
+      <div>
+        <b>Quản trị viên</b>
+        <span>Toàn quyền hệ thống</span>
+      </div>
+    </div>
+    <nav aria-label="Menu quản trị">
+      <div class="navlabel">Quản trị</div>
+      <button class="snav active" data-tab="dashboard">📊 Tổng quan hệ thống</button>
+      <button class="snav" data-tab="users">👥 Tài khoản & Khối/Lớp</button>
+      <button class="snav" data-tab="sports">🏅 Cấu hình môn thể chất</button>
+      <button class="snav" data-tab="feedback">💬 Góp ý từ Khách <span class="badge" id="fbBadge">0</span></button>
+    </nav>
+    <div class="side-foot">
+      <button class="logout-btn" id="adminLogoutBtn">🚪 Đăng xuất Admin</button>
+    </div>
+  </aside>
+
+  <div class="mainwrap">
+    <header class="topbar">
+      <button class="hambtn" id="hamBtn" aria-label="Mở menu">☰</button>
+      <div class="crumb">
+        <span>Cổng Quản trị viên (Ẩn)</span>
+        <b id="pageTitle">Tổng quan hệ thống</b>
+      </div>
+    </header>
+    <main class="page" id="adminPage"></main>
+  </div>
+</div>
+
+<!-- MODAL THÊM / SỬA TÀI KHOẢN & MÔN HỌC -->
+<div class="modal-wrap" id="modalWrap" aria-hidden="true">
+  <div class="mscrim" id="modalScrim"></div>
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+const ADMIN_KEY = 'sportcoach_admin_v1';
+const USERS_KEY = 'sportcoach_users';
+const FB_KEY = 'sportcoach_guest_feedback';
+const SESSION_KEY = 'sportcoach_admin_session';
+
+function toast(msg) {
+  const z = document.getElementById('toastZone');
+  z.innerHTML = '<div class="toast">' + msg + '</div>';
+  setTimeout(() => { z.innerHTML = ''; }, 2600);
+}
+function esc(s) {
+  return String(s || '').replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+}
+
+function defaultAdminData() {
+  return {
+    users: [
+      { id: 'u1', name: 'Trần Minh Đức', email: 'duc.gv@school.edu.vn', role: 'teacher', unit: 'Tổ Thể chất', status: 'active' },
+      { id: 'u2', name: 'Nguyễn Thu Hà', email: 'ha.10a1@school.edu.vn', role: 'student', unit: '10A1', status: 'active' },
+      { id: 'u3', name: 'Lê Quốc Bảo', email: 'bao.10a1@school.edu.vn', role: 'student', unit: '10A1', status: 'active' },
+      { id: 'u4', name: 'Phạm Ngọc Mai', email: 'mai.10a2@school.edu.vn', role: 'student', unit: '10A2', status: 'locked' }
+    ],
+    sports: [
+      { id: 'sp1', name: 'Điền kinh', lessons: 12, level: 'Cơ bản – Nâng cao', active: true, desc: 'Chạy ngắn, nâng cao đùi, bật xa tại chỗ.' },
+      { id: 'sp2', name: 'Bóng đá', lessons: 10, level: 'Trung bình', active: true, desc: 'Dẫn bóng, chuyền bóng và sơ đồ vị trí.' },
+      { id: 'sp3', name: 'Bơi lội', lessons: 8, level: 'Cơ bản', active: true, desc: 'Thở nước, bơi ếch, quy tắc an toàn.' },
+      { id: 'sp4', name: 'Thể dục nhịp điệu', lessons: 10, level: 'Cơ bản', active: true, desc: 'Jumping Jacks, Squat, Lunge, thả lỏng.' }
+    ]
+  };
+}
+
+function loadAdminData() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(ADMIN_KEY)); } catch (e) {}
+  if (!data || !data.users || !data.sports) {
+    data = defaultAdminData();
+    localStorage.setItem(ADMIN_KEY, JSON.stringify(data));
+  }
+  // Đồng bộ tài khoản mới tạo từ register.html (sportcoach_users)
+  try {
+    const reg = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+    let changed = false;
+    reg.forEach((u, idx) => {
+      if (!data.users.some(x => x.email.toLowerCase() === u.email.toLowerCase())) {
+        data.users.unshift({
+          id: 'reg_' + idx + '_' + Date.now(),
+          name: u.name,
+          email: u.email,
+          role: u.role || 'student',
+          unit: u.unit || 'Chưa phân lớp',
+          status: 'active'
+        });
+        changed = true;
+      }
+    });
+    if (changed) localStorage.setItem(ADMIN_KEY, JSON.stringify(data));
+  } catch (e) {}
+  return data;
+}
+
+function saveAdminData(data) {
+  localStorage.setItem(ADMIN_KEY, JSON.stringify(data));
+}
+
+function loadFeedback() {
+  try { return JSON.parse(localStorage.getItem(FB_KEY) || '[]'); } catch (e) { return []; }
+}
+
+let currentTab = 'dashboard';
+let userSearch = '';
+let userRoleFilter = 'all';
+
+function updateBadge() {
+  document.getElementById('fbBadge').textContent = loadFeedback().length;
+}
+
+function render() {
+  const data = loadAdminData();
+  const feedbacks = loadFeedback();
+  updateBadge();
+  const page = document.getElementById('adminPage');
+  const titleMap = {
+    dashboard: 'Tổng quan hệ thống',
+    users: 'Quản lý Tài khoản & Khối/Lớp',
+    sports: 'Cấu hình Môn thể chất & Tiết học',
+    feedback: 'Góp ý từ Khách'
+  };
+  document.getElementById('pageTitle').textContent = titleMap[currentTab];
+
+  if (currentTab === 'dashboard') {
+    const teachers = data.users.filter(u => u.role === 'teacher').length;
+    const students = data.users.filter(u => u.role === 'student').length;
+    const activeSports = data.sports.filter(s => s.active).length;
+    page.innerHTML = `
+      <div class="pagehead">
+        <div>
+          <h2>Tổng quan hệ thống</h2>
+          <p class="sub">Theo dõi tài khoản, môn thể chất đang bật và phản hồi từ người dùng Khách.</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-card sc-green"><div class="si">👥</div><b>${data.users.length}</b><span>Tổng tài khoản</span></div>
+        <div class="stat-card sc-blue"><div class="si">🎓</div><b>${students}</b><span>Học sinh</span></div>
+        <div class="stat-card sc-orange"><div class="si">🧑‍🏫</div><b>${teachers}</b><span>Giáo viên</span></div>
+        <div class="stat-card sc-purple"><div class="si">🏅</div><b>${activeSports}/${data.sports.length}</b><span>Môn thể chất hoạt động</span></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin-bottom:12px;color:var(--pine)">Môn thể chất đang cấu hình</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Môn</th><th>Số tiết</th><th>Trạng thái</th></tr></thead>
+              <tbody>
+                ${data.sports.map(s => `
+                  <tr>
+                    <td><b>${esc(s.name)}</b></td>
+                    <td>${s.lessons} tiết</td>
+                    <td><span class="chip ${s.active ? 'ok' : 'danger'}">${s.active ? 'Đang bật' : 'Tạm ẩn'}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:12px;color:var(--pine)">Góp ý Khách mới nhất (${feedbacks.length})</h3>
+          ${feedbacks.length ? feedbacks.slice(0, 4).map(f => `
+            <div style="padding:10px 0;border-bottom:1px solid var(--line)">
+              <b>${esc(f.name)}</b> <span class="chip blue">${esc(f.topic)}</span>
+              <p style="font-size:13px;color:var(--mut);margin-top:4px">${esc(f.msg)}</p>
+            </div>
+          `).join('') : '<p style="color:var(--mut);font-size:13.5px">Chưa có góp ý nào từ trang Khách.</p>'}
+        </div>
+      </div>
+    `;
+  }
+
+  if (currentTab === 'users') {
+    const filtered = data.users.filter(u => {
+      const mRole = userRoleFilter === 'all' || u.role === userRoleFilter;
+      const q = userSearch.trim().toLowerCase();
+      const mQ = !q || u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q) || u.unit.toLowerCase().includes(q);
+      return mRole && mQ;
+    });
+    page.innerHTML = `
+      <div class="pagehead">
+        <div>
+          <h2>Quản lý Tài khoản & Khối/Lớp</h2>
+          <p class="sub">Thêm mới, khóa/mở khóa hoặc xóa tài khoản giáo viên và học sinh.</p>
+        </div>
+        <button class="btn btn-p" id="addUserBtn">+ Thêm tài khoản</button>
+      </div>
+      <div class="card">
+        <div class="toolbar">
+          <input class="search" id="userSearchInput" value="${esc(userSearch)}" placeholder="Tìm theo tên, email, lớp...">
+          <select class="fsel" id="userRoleSel">
+            <option value="all" ${userRoleFilter==='all'?'selected':''}>Tất cả vai trò</option>
+            <option value="teacher" ${userRoleFilter==='teacher'?'selected':''}>Giáo viên</option>
+            <option value="student" ${userRoleFilter==='student'?'selected':''}>Học sinh</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Họ tên</th><th>Email</th><th>Vai trò</th><th>Lớp / Đơn vị</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+            <tbody>
+              ${filtered.length ? filtered.map(u => `
+                <tr>
+                  <td><b>${esc(u.name)}</b></td>
+                  <td>${esc(u.email)}</td>
+                  <td><span class="chip ${u.role==='teacher'?'orange':'blue'}">${u.role==='teacher'?'Giáo viên':'Học sinh'}</span></td>
+                  <td>${esc(u.unit)}</td>
+                  <td><span class="chip ${u.status==='active'?'ok':'danger'}">${u.status==='active'?'Hoạt động':'Đã khóa'}</span></td>
+                  <td style="display:flex;gap:6px;flex-wrap:wrap">
+                    <button class="btn btn-g btn-sm" data-toggle-user="${u.id}">${u.status==='active'?'Khóa':'Mở'}</button>
+                    <button class="btn btn-d btn-sm" data-del-user="${u.id}">Xóa</button>
+                  </td>
+                </tr>
+              `).join('') : '<tr><td colspan="6" style="text-align:center;color:var(--mut);padding:24px">Không tìm thấy tài khoản phù hợp.</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+    document.getElementById('userSearchInput').addEventListener('input', e => { userSearch = e.target.value; render(); });
+    document.getElementById('userRoleSel').addEventListener('change', e => { userRoleFilter = e.target.value; render(); });
+    document.getElementById('addUserBtn').addEventListener('click', openAddUserModal);
+    page.querySelectorAll('[data-toggle-user]').forEach(b => b.addEventListener('click', () => {
+      const d = loadAdminData();
+      const target = d.users.find(x => x.id === b.dataset.toggleUser);
+      if (target) {
+        target.status = target.status === 'active' ? 'locked' : 'active';
+        saveAdminData(d);
+        toast('Đã cập nhật trạng thái tài khoản.');
+        render();
+      }
+    }));
+    page.querySelectorAll('[data-del-user]').forEach(b => b.addEventListener('click', () => {
+      const d = loadAdminData();
+      d.users = d.users.filter(x => x.id !== b.dataset.delUser);
+      saveAdminData(d);
+      toast('Đã xóa tài khoản.');
+      render();
+    }));
+  }
+
+  if (currentTab === 'sports') {
+    page.innerHTML = `
+      <div class="pagehead">
+        <div>
+          <h2>Cấu hình Môn thể chất & Tiết học</h2>
+          <p class="sub">Quản lý danh mục môn học, số tiết trong học kỳ và trạng thái hiển thị.</p>
+        </div>
+        <button class="btn btn-p" id="addSportBtn">+ Thêm môn thể chất</button>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tên môn</th><th>Số tiết / HK</th><th>Mức độ</th><th>Mô tả</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+            <tbody>
+              ${data.sports.map(s => `
+                <tr>
+                  <td><b>${esc(s.name)}</b></td>
+                  <td>${s.lessons} tiết</td>
+                  <td>${esc(s.level)}</td>
+                  <td style="color:var(--mut)">${esc(s.desc)}</td>
+                  <td><span class="chip ${s.active?'ok':'warn'}">${s.active?'Đang bật':'Tạm ẩn'}</span></td>
+                  <td style="display:flex;gap:6px">
+                    <button class="btn btn-g btn-sm" data-toggle-sport="${s.id}">${s.active?'Ẩn':'Bật'}</button>
+                    <button class="btn btn-g btn-sm" data-inc-sport="${s.id}">+1 tiết</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+    document.getElementById('addSportBtn').addEventListener('click', openAddSportModal);
+    page.querySelectorAll('[data-toggle-sport]').forEach(b => b.addEventListener('click', () => {
+      const d = loadAdminData();
+      const s = d.sports.find(x => x.id === b.dataset.toggleSport);
+      if (s) { s.active = !s.active; saveAdminData(d); toast('Đã cập nhật trạng thái môn học.'); render(); }
+    }));
+    page.querySelectorAll('[data-inc-sport]').forEach(b => b.addEventListener('click', () => {
+      const d = loadAdminData();
+      const s = d.sports.find(x => x.id === b.dataset.incSport);
+      if (s) { s.lessons += 1; saveAdminData(d); toast('Đã tăng số tiết môn ' + s.name); render(); }
+    }));
+  }
+
+  if (currentTab === 'feedback') {
+    page.innerHTML = `
+      <div class="pagehead">
+        <div>
+          <h2>Góp ý từ Khách</h2>
+          <p class="sub">Danh sách phản hồi được gửi từ trang chủ Khách (index.html).</p>
+        </div>
+        ${feedbacks.length ? '<button class="btn btn-d btn-sm" id="clearFbBtn">Xóa tất cả góp ý</button>' : ''}
+      </div>
+      <div class="card">
+        ${feedbacks.length ? feedbacks.map(f => `
+          <div style="padding:14px 0;border-bottom:1px solid var(--line)">
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+              <div><b>${esc(f.name)}</b> <span class="chip blue">${esc(f.topic)}</span></div>
+              <span style="font-size:12px;color:var(--mut)">${new Date(f.at).toLocaleString('vi-VN')}</span>
+            </div>
+            <p style="margin-top:6px;font-size:13.5px">${esc(f.msg)}</p>
+          </div>
+        `).join('') : '<p style="text-align:center;color:var(--mut);padding:28px">Chưa có góp ý nào.</p>'}
+      </div>
+    `;
+    const clr = document.getElementById('clearFbBtn');
+    if (clr) clr.addEventListener('click', () => { localStorage.removeItem(FB_KEY); toast('Đã xóa toàn bộ góp ý.'); render(); });
+  }
+}
+
+function openModal(html) {
+  document.getElementById('modalBox').innerHTML = html;
+  document.getElementById('modalWrap').classList.add('open');
+  document.getElementById('modalWrap').setAttribute('aria-hidden', 'false');
+}
+function closeModal() {
+  document.getElementById('modalWrap').classList.remove('open');
+  document.getElementById('modalWrap').setAttribute('aria-hidden', 'true');
+}
+document.getElementById('modalScrim').addEventListener('click', closeModal);
+
+function openAddUserModal() {
+  openModal(`
+    <h3 style="margin-bottom:14px;color:var(--pine)">Thêm tài khoản mới</h3>
+    <form id="mUserForm">
+      <div class="field"><label>Họ tên *</label><input id="muName" required placeholder="Nguyễn Văn A"></div>
+      <div class="field"><label>Email *</label><input id="muEmail" type="email" required placeholder="vana@school.edu.vn"></div>
+      <div class="field"><label>Vai trò</label><select id="muRole"><option value="student">Học sinh</option><option value="teacher">Giáo viên</option></select></div>
+      <div class="field"><label>Lớp / Đơn vị *</label><input id="muUnit" required placeholder="10A3"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end">
+        <button type="button" class="btn btn-g btn-sm" onclick="closeModal()">Hủy</button>
+        <button type="submit" class="btn btn-p btn-sm">Lưu tài khoản</button>
+      </div>
+    </form>
+  `);
+  document.getElementById('mUserForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const d = loadAdminData();
+    d.users.unshift({
+      id: 'u_' + Date.now(),
+      name: document.getElementById('muName').value.trim(),
+      email: document.getElementById('muEmail').value.trim(),
+      role: document.getElementById('muRole').value,
+      unit: document.getElementById('muUnit').value.trim(),
+      status: 'active'
+    });
+    saveAdminData(d);
+    closeModal();
+    toast('✔ Đã thêm tài khoản mới.');
+    render();
+  });
+}
+
+function openAddSportModal() {
+  openModal(`
+    <h3 style="margin-bottom:14px;color:var(--pine)">Thêm môn thể chất</h3>
+    <form id="mSportForm">
+      <div class="field"><label>Tên môn *</label><input id="msName" required placeholder="Bóng chuyền"></div>
+      <div class="field"><label>Số tiết / học kỳ *</label><input id="msLessons" type="number" min="1" value="8" required></div>
+      <div class="field"><label>Mức độ</label><input id="msLevel" value="Cơ bản" required></div>
+      <div class="field"><label>Mô tả ngắn</label><textarea id="msDesc" placeholder="Kỹ thuật đệm bóng, chuyền bóng..."></textarea></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end">
+        <button type="button" class="btn btn-g btn-sm" onclick="closeModal()">Hủy</button>
+        <button type="submit" class="btn btn-p btn-sm">Thêm môn</button>
+      </div>
+    </form>
+  `);
+  document.getElementById('mSportForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const d = loadAdminData();
+    d.sports.push({
+      id: 'sp_' + Date.now(),
+      name: document.getElementById('msName').value.trim(),
+      lessons: parseInt(document.getElementById('msLessons').value, 10) || 8,
+      level: document.getElementById('msLevel').value.trim(),
+      desc: document.getElementById('msDesc').value.trim(),
+      active: true
+    });
+    saveAdminData(d);
+    closeModal();
+    toast('✔ Đã thêm môn thể chất mới.');
+    render();
+  });
+}
+
+// Navigation tabs
+document.querySelectorAll('.snav').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.snav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentTab = btn.dataset.tab;
+    document.getElementById('adminSide').classList.remove('open');
+    document.getElementById('sideScrim').classList.remove('show');
+    render();
+  });
+});
+
+// Mobile sidebar
+document.getElementById('hamBtn').addEventListener('click', () => {
+  document.getElementById('adminSide').classList.toggle('open');
+  document.getElementById('sideScrim').classList.toggle('show');
+});
+document.getElementById('sideScrim').addEventListener('click', () => {
+  document.getElementById('adminSide').classList.remove('open');
+  document.getElementById('sideScrim').classList.remove('show');
+});
+
+// Auth Gate Logic
+function unlockAdmin() {
+  document.getElementById('adminGate').style.display = 'none';
+  document.getElementById('adminShell').classList.add('active');
+  render();
+}
+if (sessionStorage.getItem(SESSION_KEY) === 'ok') unlockAdmin();
+
+document.getElementById('adminLoginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const em = document.getElementById('aEmail').value.trim().toLowerCase();
+  const pw = document.getElementById('aPass').value;
+  const eWrap = document.getElementById('aEmailWrap');
+  const pWrap = document.getElementById('aPassWrap');
+  eWrap.classList.remove('invalid');
+  pWrap.classList.remove('invalid');
+
+  if (em !== 'admin@sportcoach.edu.vn') { eWrap.classList.add('invalid'); return; }
+  if (pw !== 'admin123') { pWrap.classList.add('invalid'); return; }
+
+  sessionStorage.setItem(SESSION_KEY, 'ok');
+  unlockAdmin();
+  toast('✔ Đăng nhập Quản trị viên thành công.');
+});
+
+document.getElementById('adminLogoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  document.getElementById('adminShell').classList.remove('active');
+  document.getElementById('adminGate').style.display = 'grid';
+});
+</script>
+</body>
+</html>

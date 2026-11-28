@@ -295,8 +295,16 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .objlist li::before{content:"◆";color:var(--lime-deep);font-size:10px;margin-top:4px}
 
 /* ============ GIAO DIỆN CHẤM ĐIỂM ============ */
-.grade-layout{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
-.qlist{display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 250px);overflow-y:auto;padding-right:4px}
+.grade-layout{display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start}
+.grade-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.grade-filters select,.grade-filters input[type=date]{width:100%;padding:8px 10px;border-radius:11px;border:1.5px solid var(--line);background:var(--surface);font-size:12px;font-weight:600;color:var(--ink)}
+.grade-filters select:focus,.grade-filters input[type=date]:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(14,122,61,.14)}
+.grade-filter-date{grid-column:1 / -1;display:flex;gap:8px;align-items:center}
+.grade-filter-date label{font-size:11.5px;font-weight:700;color:var(--mut);white-space:nowrap}
+.grade-meta-bar{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--mut);font-weight:700;margin-bottom:10px;padding:0 2px}
+.grade-reset-btn{background:none;border:none;color:var(--orange-deep);font-weight:800;font-size:11.5px;cursor:pointer;padding:2px 6px;border-radius:8px}
+.grade-reset-btn:hover{background:#fff1eb}
+.qlist{display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 290px);overflow-y:auto;padding-right:4px}
 .qitem{display:flex;gap:12px;align-items:center;text-align:left;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;transition:all .18s}
 .qitem:hover{border-color:var(--green);transform:translateX(3px)}
 .qitem.sel{border-color:var(--orange);background:#fff8f4;box-shadow:0 8px 20px -10px rgba(244,99,46,.4)}
@@ -350,6 +358,14 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 
 /* ============ GIAO DIỆN NHẬT KÝ ============ */
 .diary-layout{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+/* ============ GIAO DIỆN GIÁM SÁT & KIỂM TRA ============ */
+.sup-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.sup-file-box{padding:12px 14px;border:1.5px dashed var(--line);border-radius:12px;background:#f8faf4;font-size:12.5px}
+.sup-file-box input[type=file]{width:100%;font-size:12px;margin-top:6px}
+.sup-file-meta{margin-top:6px;font-size:11.5px;color:var(--green-deep);font-weight:700}
+.sup-reply{margin-top:10px;padding:10px 12px;border-radius:11px;background:#f1f7ec;border-left:3.5px solid var(--green);font-size:12.5px;line-height:1.5}
+.sup-reply b{color:var(--green-deep);display:block;margin-bottom:3px;font-size:12px}
+@media (max-width:960px){.sup-grid{grid-template-columns:1fr}}
 .seg{display:flex;gap:6px}
 .seg button{flex:1;padding:9px 4px;border-radius:10px;border:1.5px solid var(--line);background:#fbfcf8;font-weight:800;font-size:13px;color:var(--mut);transition:all .15s}
 .seg button.on{background:linear-gradient(110deg,var(--green-hi),var(--green-deep));color:#fff;border-color:var(--green-deep)}
@@ -533,14 +549,14 @@ function seed(){
     {id:'b143',type:'cool',title:'Thả lỏng',mins:5,items:[]}]}
  ];
  const submissions=[
-  {id:'s1',student:'Nguyễn Thu Hà',videoId:'v8',weekId:'w13',date:isoAdd(-1),status:'pending',scores:null,comment:''},
-  {id:'s2',student:'Lê Quốc Bảo',videoId:'v6',weekId:'w13',date:isoAdd(-1),status:'pending',scores:null,comment:''},
-  {id:'s3',student:'Phạm Ngọc Mai',videoId:'v2',weekId:'w12',date:isoAdd(-2),status:'pending',scores:null,comment:''},
-  {id:'s4',student:'Đỗ Hoàng Nam',videoId:'v3',weekId:'w12',date:isoAdd(-2),status:'pending',scores:null,comment:''},
-  {id:'s5',student:'Vũ Khánh Linh',videoId:'v1',weekId:'w13',date:isoAdd(-3),status:'pending',scores:null,comment:''},
-  {id:'s6',student:'Nguyễn Thu Hà',videoId:'v2',weekId:'w12',date:isoAdd(-5),status:'graded',scores:{posture:8.5,range:8,rhythm:7.5,finish:8},comment:'Tư thế tốt, xuống chưa đủ sâu ở 3 lần cuối. Giữ lưng thẳng hơn khi đứng lên.'},
-  {id:'s7',student:'Trần Đức Anh',videoId:'v4',weekId:'w12',date:isoAdd(-6),status:'graded',scores:{posture:7,range:6.5,rhythm:8,finish:7},comment:'Đùi nâng chưa tới ngang hông, nhịp tốt. Khắc phục biên độ ở buổi sau.'},
-  {id:'s8',student:'Nguyễn Thu Hà',videoId:'v4',weekId:'w11',date:isoAdd(-9),status:'graded',scores:{posture:7.5,range:7,rhythm:8.5,finish:7.5},comment:'Nhịp đều, thân trên hơi ngả sau khi mệt — chú ý siết cơ bụng.'}
+  {id:'s1',student:'Nguyễn Thu Hà',className:'10A1',videoId:'v8',weekId:'w13',date:isoAdd(-1),status:'pending',scores:null,comment:''},
+  {id:'s2',student:'Lê Quốc Bảo',className:'10A2',videoId:'v6',weekId:'w13',date:isoAdd(-1),status:'pending',scores:null,comment:''},
+  {id:'s3',student:'Phạm Ngọc Mai',className:'10A1',videoId:'v2',weekId:'w12',date:isoAdd(-2),status:'pending',scores:null,comment:''},
+  {id:'s4',student:'Đỗ Hoàng Nam',className:'10A3',videoId:'v3',weekId:'w12',date:isoAdd(-2),status:'pending',scores:null,comment:''},
+  {id:'s5',student:'Vũ Khánh Linh',className:'10A2',videoId:'v1',weekId:'w13',date:isoAdd(-3),status:'pending',scores:null,comment:''},
+  {id:'s6',student:'Nguyễn Thu Hà',className:'10A1',videoId:'v2',weekId:'w12',date:isoAdd(-5),status:'graded',scores:{posture:8.5,range:8,rhythm:7.5,finish:8},comment:'Tư thế tốt, xuống chưa đủ sâu ở 3 lần cuối. Giữ lưng thẳng hơn khi đứng lên.'},
+  {id:'s7',student:'Trần Đức Anh',className:'10A3',videoId:'v4',weekId:'w12',date:isoAdd(-6),status:'graded',scores:{posture:7,range:6.5,rhythm:8,finish:7},comment:'Đùi nâng chưa tới ngang hông, nhịp tốt. Khắc phục biên độ ở buổi sau.'},
+  {id:'s8',student:'Nguyễn Thu Hà',className:'10A1',videoId:'v4',weekId:'w11',date:isoAdd(-9),status:'graded',scores:{posture:7.5,range:7,rhythm:8.5,finish:7.5},comment:'Nhịp đều, thân trên hơi ngả sau khi mệt — chú ý siết cơ bụng.'}
  ];
  const diary=[
   {id:'d1',date:isoAdd(0),activity:'Bật nhảy tại chỗ + chống đẩy',videoId:'v8',minutes:25,intensity:4,feel:'good',note:'Bật được 4 hiệp liên tục, tiếp đất đã êm hơn.'},
@@ -562,10 +578,14 @@ function seed(){
   {week:'T12',jump:188,sprint:5.9,situps:39,reach:13,endurance:1100},
   {week:'T13',jump:192,sprint:5.8,situps:41,reach:14,endurance:1120}
  ];
+ const questions=[
+  {id:'q1',student:'Nguyễn Thu Hà',className:'10A1',topic:'Kỹ thuật động tác',question:'Thầy ơi khi tiếp đất bật nhảy tại chỗ em hay bị mỏi nhẹ đầu gối, cần lưu ý góc khuỵu gối như thế nào ạ?',date:isoAdd(-2),status:'answered',reply:'Em nhớ tiếp đất bằng mũi chân trước rồi mới hạ gót, đồng thời khuỵu gối khoảng 120–130 độ để giảm chấn, không khóa khớp gối nhé.',replyDate:isoAdd(-1)},
+  {id:'q2',student:'Nguyễn Thu Hà',className:'10A1',topic:'Quy định quay & nộp video',question:'Video chống đẩy em quay góc nghiêng 45 độ hay quay ngang toàn thân để thầy dễ chấm hơn ạ?',date:isoAdd(0),status:'pending',reply:'',replyDate:''}
+ ];
  return {
   v:1, session:{role:null},
   users:{teacher:{name:'Trần Minh Đức',title:'GV Giáo dục thể chất · THPT Nguyễn Du'},student:{name:'Nguyễn Thu Hà',title:'Học sinh lớp 10A1'}},
-  videos,weeks,submissions,diary,fitness,
+  videos,weeks,submissions,diary,fitness,questions,
   classAvg:{jump:180,sprint:6.0,situps:36,reach:12,endurance:1050},
   classJump:[168,171,173,176,178,180,182,184],
   progress:{}
@@ -580,7 +600,7 @@ const api={
  wait:()=>new Promise(r=>setTimeout(r,120+Math.random()*260)),
  async load(){
   await this.wait();
-  try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);if(p&&p.v===1)return p;}}catch(e){}
+  try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);if(p&&p.v===1){const clsMap={s1:'10A1',s2:'10A2',s3:'10A1',s4:'10A3',s5:'10A2',s6:'10A1',s7:'10A3',s8:'10A1'};if(Array.isArray(p.submissions))p.submissions.forEach(s=>{if(!s.className)s.className=clsMap[s.id]||'10A1';});if(!Array.isArray(p.questions))p.questions=seed().questions;return p;}}}catch(e){}
   return seed();
  },
  _saving:0,
@@ -837,7 +857,7 @@ function radarChart(cv,axes,aVals,bVals,opts){
 // Trạng thái điều khiển bộ lọc, trang đang xem và dữ liệu form trong phiên.
 const ui={
  lib:{q:'',cat:'all',sort:'new'},
- grade:{sel:null,filter:'pending',q:'',scores:{posture:7,range:7,rhythm:7,finish:7}},
+ grade:{sel:null,filter:'pending',q:'',subject:'all',className:'all',date:'',scores:{posture:7,range:7,rhythm:7,finish:7}},
  studentWeek:'w13',
  metric:'jump',
  diary:{intensity:3,feel:'good'},
@@ -885,7 +905,8 @@ const NAVS={
   {sub:'home',label:'Học tuần này',icon:'home'},
   {sub:'library',label:'Thư viện động tác',icon:'video'},
   {sub:'diary',label:'Nhật ký luyện tập',icon:'book'},
-  {sub:'progress',label:'Tiến độ thể lực',icon:'chart'}
+  {sub:'progress',label:'Tiến độ thể lực',icon:'chart'},
+  {sub:'supervision',label:'Giám sát & Kiểm tra',icon:'clip'}
  ]
 };
 const TITLES={
@@ -896,7 +917,8 @@ const TITLES={
  'student/home':['Học tập','Bài học tuần này'],
  'student/library':['Ôn tập','Thư viện video động tác'],
  'student/diary':['Tự luyện','Nhật ký luyện tập'],
- 'student/progress':['Theo dõi','Tiến độ thể lực']
+ 'student/progress':['Theo dõi','Tiến độ thể lực'],
+ 'student/supervision':['Giám sát & Kiểm tra','Nộp bài video & Hỏi giáo viên']
 };
 function cleanup(){
  players.forEach(p=>p.destroy());players.clear();
@@ -1132,23 +1154,45 @@ function videoDrawerHTML(v){
 }
 
 /* ================= TRANG CHẤM ĐIỂM ================= */
-// Giáo viên chọn bài nộp, điều chỉnh rubric và lưu điểm nhận xét.
+function normVN(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().trim();}
+function fmtDateVN(iso){if(!iso)return '—';const p=iso.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:iso;}
+// Giáo viên chọn bài nộp, tìm kiếm theo tên học sinh, môn đang học, lớp, ngày up video và chấm điểm.
 PAGES['teacher/grading']={
  html(){
   const g=ui.grade;
-  let list=db.submissions.slice().sort((a,b)=>b.date.localeCompare(a.date));
-  if(g.filter!=='all')list=list.filter(s=>s.status===g.filter);
-  if(g.q)list=list.filter(s=>s.student.toLowerCase().includes(g.q.toLowerCase()));
-  if(!g.sel||!db.submissions.find(s=>s.id===g.sel))g.sel=list.length?list[0].id:null;
-  const sel=db.submissions.find(s=>s.id===g.sel);
-  return '<div class="pagehead"><div><span class="kicker">Đánh giá học sinh · Lớp 10A1</span><h2>CHẤM ĐIỂM KỸ THUẬT</h2><p class="sub">Xem lại động tác học sinh nộp, chấm theo rubric 4 tiêu chí (thang 10) và gửi nhận xét.</p></div>'
+  const allSubs=db.submissions.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const byStatus=g.filter==='all'?allSubs:allSubs.filter(s=>s.status===g.filter);
+  const subjects=[...new Set(db.submissions.map(s=>vid(s.videoId)?.cat).filter(Boolean))];
+  const classes=[...new Set(db.submissions.map(s=>s.className||'10A1'))].sort();
+  let list=byStatus;
+  if(g.subject!=='all')list=list.filter(s=>(vid(s.videoId)?.cat||'')===g.subject);
+  if(g.className!=='all')list=list.filter(s=>(s.className||'10A1')===g.className);
+  if(g.date)list=list.filter(s=>s.date===g.date);
+  if(g.q){
+   const nq=normVN(g.q);
+   list=list.filter(s=>{
+    const v=vid(s.videoId);
+    const hay=normVN([s.student,s.className||'10A1',v?v.cat:'',v?v.title:'',fmtDateVN(s.date),s.date].join(' '));
+    return hay.includes(nq);
+   });
+  }
+  if(!g.sel||!list.find(s=>s.id===g.sel))g.sel=list.length?list[0].id:null;
+  const sel=list.find(s=>s.id===g.sel);
+  const hasFilter=!!(g.q||g.subject!=='all'||g.className!=='all'||g.date);
+  return '<div class="pagehead"><div><span class="kicker">Đánh giá học sinh · '+(g.className==='all'?'Tất cả lớp':'Lớp '+esc(g.className))+'</span><h2>CHẤM ĐIỂM KỸ THUẬT</h2><p class="sub">Tìm kiếm học sinh theo tên, môn đang học, lớp, ngày upload video và chấm theo rubric 4 tiêu chí.</p></div>'
   +'<div class="filters"><button class="fchip'+(g.filter==='pending'?' active':'')+'" data-action="grade-filter" data-f="pending">⏳ Chờ chấm ('+pendingCount()+')</button><button class="fchip'+(g.filter==='graded'?' active':'')+'" data-action="grade-filter" data-f="graded">✔ Đã chấm</button><button class="fchip'+(g.filter==='all'?' active':'')+'" data-action="grade-filter" data-f="all">Tất cả</button></div></div>'
   +'<div class="grade-layout">'
-  +'<div><div class="searchbox" style="max-width:none;margin-bottom:12px">'+I.search+'<input data-input="grade-q" placeholder="Tìm học sinh…" value="'+esc(g.q)+'"></div>'
+  +'<div><div class="searchbox" style="max-width:none;margin-bottom:8px">'+I.search+'<input data-input="grade-q" placeholder="Tìm tên học sinh, môn, lớp, ngày…" value="'+esc(g.q)+'"></div>'
+  +'<div class="grade-filters">'
+  +'<select data-input="grade-subject" aria-label="Lọc theo môn đang học"><option value="all">Môn: Tất cả</option>'+subjects.map(c=>'<option value="'+esc(c)+'"'+(g.subject===c?' selected':'')+'>'+esc(c)+'</option>').join('')+'</select>'
+  +'<select data-input="grade-class" aria-label="Lọc theo lớp"><option value="all">Lớp: Tất cả</option>'+classes.map(c=>'<option value="'+esc(c)+'"'+(g.className===c?' selected':'')+'>Lớp '+esc(c)+'</option>').join('')+'</select>'
+  +'<div class="grade-filter-date"><label for="gradeDate">Ngày up:</label><input id="gradeDate" type="date" data-input="grade-date" value="'+esc(g.date)+'"></div>'
+  +'</div>'
+  +'<div class="grade-meta-bar"><span>Hiển thị '+list.length+' / '+byStatus.length+' bài</span>'+(hasFilter?'<button class="grade-reset-btn" type="button" data-action="grade-reset">✕ Xóa bộ lọc</button>':'')+'</div>'
   +'<div class="qlist" id="qlist">'
-  +(list.length?list.map(s=>{const v=vid(s.videoId);const t=s.status==='graded'?gradeTotal(s.scores):null;
-    return '<button class="qitem'+(s.id===g.sel?' sel':'')+'" data-action="grade-sel" data-id="'+s.id+'"><span class="qav">'+esc(initials(s.student))+'</span><span><b>'+esc(s.student)+'</b><span>'+esc(v?v.title:'—')+'</span></span><span class="qst chip '+(s.status==='pending'?'warn':gradeLabel(t)[1])+'">'+(s.status==='pending'?'Chờ':t)+'</span></button>';}).join('')
-   :'<div class="empty"><div class="big">🗂</div>Không có bài nào trong mục này.</div>')
+  +(list.length?list.map(s=>{const v=vid(s.videoId);const t=s.status==='graded'?gradeTotal(s.scores):null;const cls=s.className||'10A1';
+    return '<button class="qitem'+(s.id===g.sel?' sel':'')+'" data-action="grade-sel" data-id="'+s.id+'"><span class="qav">'+esc(initials(s.student))+'</span><span style="min-width:0"><b>'+esc(s.student)+'</b><span>'+esc(v?v.title:'—')+'</span><span>Lớp '+esc(cls)+' · '+esc(v?v.cat:'—')+' · '+fmtDateVN(s.date)+'</span></span><span class="qst chip '+(s.status==='pending'?'warn':gradeLabel(t)[1])+'">'+(s.status==='pending'?'Chờ':t)+'</span></button>';}).join('')
+   :'<div class="empty"><div class="big">🗂</div>Không có bài nào phù hợp bộ lọc.</div>')
   +'</div></div>'
   +'<div class="card grade-panel" id="gradePanel">'+(sel?gradePanelHTML(sel):'<div class="empty"><div class="big">👈</div>Chọn một bài bên trái để bắt đầu chấm.</div>')+'</div>'
   +'</div>';
@@ -1167,7 +1211,7 @@ function gradePanelHTML(s){
  const total=gradeTotal(sc);const gl=gradeLabel(total);
  return '<div style="display:flex;gap:14px;align-items:center;margin-bottom:16px;flex-wrap:wrap">'
  +'<span class="qav" style="width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(140deg,var(--blue),var(--cyan))">'+esc(initials(s.student))+'</span>'
- +'<div><b style="font-size:16px">'+esc(s.student)+'</b><div style="font-size:12.5px;color:var(--mut)">'+esc(v?v.title:'—')+' · '+esc(w?w.label:'')+' · nộp '+dParts(s.date).day+'/'+dParts(s.date).mon+'</div></div>'
+ +'<div><b style="font-size:16px">'+esc(s.student)+'</b><div style="font-size:12.5px;color:var(--mut)">Lớp '+esc(s.className||'10A1')+' · Môn '+esc(v?v.cat:'—')+' · '+esc(v?v.title:'—')+' · '+esc(w?w.label:'')+' · up '+fmtDateVN(s.date)+'</div>'+(s.fileName?'<div style="font-size:12px;color:var(--green-deep);margin-top:3px">📎 Video nộp: <b>'+esc(s.fileName)+'</b></div>':'')+(s.studentNote?'<div style="font-size:12px;color:var(--mut);margin-top:2px">💬 Ghi chú HS: '+esc(s.studentNote)+'</div>':'')+'</div>'
  +'<span class="chip '+(s.status==='pending'?'warn':'ok')+'" style="margin-left:auto">'+(s.status==='pending'?'⏳ Chờ chấm':'✔ Đã chấm')+'</span></div>'
  +(v?playerHTML('gp'):'')
  +'<div class="rubric">'
@@ -1214,6 +1258,7 @@ PAGES['student/home']={
   +'</div>'
   +'<div class="card listcard"><h3>⚡ Luyện tiếp</h3>'
   +'<a class="quick-row" href="#/student/diary"><span class="qi" style="background:#e9f4e2">📔</span><span><b>Ghi nhật ký hôm nay</b><span>'+db.diary.filter(e=>e.date===todayISO()).length+' mục đã ghi</span></span><span class="qa">→</span></a>'
+  +'<a class="quick-row" href="#/student/supervision"><span class="qi" style="background:#fff2eb">🎬</span><span><b>Giám sát & Kiểm tra</b><span>Nộp video bài tập & hỏi giáo viên</span></span><span class="qa">→</span></a>'
   +'<a class="quick-row" href="#/student/progress"><span class="qi" style="background:#e7eefc">📈</span><span><b>Xem tiến độ thể lực</b><span>Bật xa '+db.fitness[db.fitness.length-1].jump+' cm</span></span><span class="qa">→</span></a>'
   +'</div>'
   +'</div>'
@@ -1326,6 +1371,74 @@ PAGES['student/progress']={
   radarChart($('#radarCv'),['Bật xa','Chạy 30m','Gập bụng','Dẻo','Sức bền'],keys.map(k=>normScore[k](last[k])),keys.map(k=>normScore[k](db.classAvg[k])),{height:260});
   const wk=last7();
   barChart($('#barCv'),wk.map(x=>x.label),wk.map(x=>x.mins),{color:HUES[1],highlight:6,height:200,min:30});
+ }
+};
+
+/* ================= TRANG GIÁM SÁT & KIỂM TRA (HỌC SINH) ================= */
+// Học sinh nộp bài kiểm tra bằng video và gửi câu hỏi về các điều cần lưu ý cho giáo viên.
+PAGES['student/supervision']={
+ html(){
+  const me=db.users.student.name;
+  const mySubs=db.submissions.filter(s=>s.student===me).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const myGraded=mySubs.filter(s=>s.status==='graded');
+  const myQs=(db.questions||[]).filter(q=>q.student===me).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const published=db.weeks.filter(w=>w.status==='published');
+  const TOPICS=['Kỹ thuật động tác','An toàn & phòng tránh chấn thương','Quy định quay & nộp video','Chế độ tập luyện & hồi phục','Khác'];
+  return '<div class="pagehead"><div><span class="kicker">Học sinh lớp 10A1 · Kiểm tra & Trao đổi</span><h2>GIÁM SÁT & KIỂM TRA</h2><p class="sub">Nộp video thực hành để giáo viên chấm điểm kỹ thuật và đặt câu hỏi về những điều cần lưu ý khi tập luyện.</p></div></div>'
+  +'<div class="mini-stat">'
+  +'<div class="ms"><b>'+mySubs.length+'</b><span>video đã nộp</span></div>'
+  +'<div class="ms"><b>'+myGraded.length+'</b><span>bài đã chấm điểm</span></div>'
+  +'<div class="ms"><b>'+(mySubs.length-myGraded.length)+'</b><span>bài đang chờ chấm</span></div>'
+  +'<div class="ms"><b>'+myQs.length+'</b><span>câu hỏi gửi giáo viên</span></div>'
+  +'</div>'
+  +'<div class="sup-grid">'
+  +'<div>'
+  +'<div class="card listcard" style="margin-bottom:16px"><h3>🎬 Nộp bài kiểm tra bằng video</h3>'
+  +'<form data-form="student-submit">'
+  +'<div class="frow"><div class="field"><label>Tuần học</label><select name="weekId">'+published.map(w=>'<option value="'+w.id+'"'+(w.id===ui.studentWeek?' selected':'')+'>'+esc(w.label)+'</option>').join('')+'</select></div>'
+  +'<div class="field"><label>Động tác / Môn kiểm tra</label><select name="videoId">'+db.videos.map(v=>'<option value="'+v.id+'">'+esc(v.title)+' ('+esc(v.cat)+')</option>').join('')+'</select></div></div>'
+  +'<div class="field"><label>Chọn tệp video thực hành *</label><div class="sup-file-box"><div>Hỗ trợ định dạng MP4, MOV, WebM (quay rõ toàn thân khi thực hiện động tác).</div><input type="file" name="videoFile" accept="video/*" data-input="sub-video-file"><div class="sup-file-meta" id="subFileMeta">Chưa chọn tệp video (nếu thử nhanh có thể bỏ trống để dùng video mẫu).</div></div></div>'
+  +'<div class="field"><label>Ghi chú gửi giáo viên</label><textarea name="note" placeholder="VD: Em quay góc nghiêng 45 độ, nhờ thầy xem giúp tư thế lưng khi xuống sâu…"></textarea></div>'
+  +'<button class="btn btn-p" type="submit" style="width:100%">📤 Nộp bài video để chấm</button>'
+  +'</form></div>'
+  +'<div style="font-weight:800;font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">📋 Lịch sử bài nộp kiểm tra ('+mySubs.length+')</div>'
+  +(mySubs.length?mySubs.map(s=>{
+    const v=vid(s.videoId);const w=week(s.weekId);
+    const total=s.status==='graded'&&s.scores?gradeTotal(s.scores):null;
+    const gl=total!==null?gradeLabel(total):null;
+    return '<div class="card" style="padding:16px;margin-bottom:12px">'
+    +'<div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap">'
+    +'<div><b style="font-size:14px">'+esc(v?v.title:'—')+'</b><div style="font-size:12px;color:var(--mut);margin-top:2px">Môn '+esc(v?v.cat:'—')+' · '+esc(w?w.label:'')+' · Nộp '+fmtDateVN(s.date)+'</div></div>'
+    +'<span class="chip '+(s.status==='pending'?'warn':gl[1])+'">'+(s.status==='pending'?'⏳ Chờ chấm':'🏅 '+total.toFixed(1)+'/10 · '+gl[0])+'</span>'
+    +'</div>'
+    +(s.fileName?'<div style="font-size:12px;color:var(--green-deep);margin-top:6px">📎 Tệp đã nộp: <b>'+esc(s.fileName)+'</b></div>':'')
+    +(s.studentNote?'<div style="font-size:12px;color:var(--mut);margin-top:4px">💬 Ghi chú của bạn: '+esc(s.studentNote)+'</div>':'')
+    +(s.status==='graded'&&s.scores?'<div class="dmeta" style="margin-top:8px"><span class="chip mut">Tư thế: '+s.scores.posture+'</span><span class="chip mut">Biên độ: '+s.scores.range+'</span><span class="chip mut">Nhịp độ: '+s.scores.rhythm+'</span><span class="chip mut">Kết thúc: '+s.scores.finish+'</span></div>':'')
+    +(s.status==='graded'&&s.comment?'<div class="sup-reply"><b>📌 Nhận xét của giáo viên:</b>'+esc(s.comment)+'</div>':'')
+    +'</div>';
+   }).join('')
+   :'<div class="empty"><div class="big">🎬</div>Bạn chưa nộp video kiểm tra nào.</div>')
+  +'</div>'
+  +'<div>'
+  +'<div class="card listcard" style="margin-bottom:16px"><h3>💬 Hỏi giáo viên về các điều cần lưu ý</h3>'
+  +'<form data-form="student-question">'
+  +'<div class="field"><label>Chủ đề cần lưu ý</label><select name="topic">'+TOPICS.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join('')+'</select></div>'
+  +'<div class="field" id="qTextField"><label>Câu hỏi / Điều cần thầy giải đáp *</label><textarea name="question" placeholder="VD: Khi tập squat em hay bị nhức cổ chân, cần điều chỉnh tư thế bàn chân ra sao ạ?"></textarea><span class="err">Vui lòng nhập nội dung câu hỏi (≥ 5 ký tự).</span></div>'
+  +'<button class="btn btn-o" type="submit" style="width:100%">✉️ Gửi câu hỏi cho giáo viên</button>'
+  +'</form></div>'
+  +'<div style="font-weight:800;font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">📌 Câu hỏi & Lưu ý từ giáo viên ('+myQs.length+')</div>'
+  +(myQs.length?myQs.map(q=>'<div class="card" style="padding:16px;margin-bottom:12px">'
+    +'<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap">'
+    +'<span class="chip blue">'+esc(q.topic)+'</span>'
+    +'<div style="display:flex;gap:6px;align-items:center"><span class="chip '+(q.status==='answered'?'ok':'warn')+'">'+(q.status==='answered'?'✔ Đã giải đáp':'⏳ Chờ thầy trả lời')+'</span><button class="vtool del" data-action="del-question" data-id="'+q.id+'" title="Xoá câu hỏi">'+I.trash+'</button></div>'
+    +'</div>'
+    +'<div style="font-size:13.5px;font-weight:600;margin-top:8px;line-height:1.5">'+esc(q.question)+'</div>'
+    +'<div style="font-size:11.5px;color:var(--mut);margin-top:4px">Gửi ngày '+fmtDateVN(q.date)+'</div>'
+    +(q.status==='answered'&&q.reply?'<div class="sup-reply"><b>📌 Lưu ý / Giải đáp của giáo viên ('+fmtDateVN(q.replyDate)+'):</b>'+esc(q.reply)+'</div>':'')
+    +'</div>').join('')
+   :'<div class="empty"><div class="big">💬</div>Chưa có câu hỏi nào. Hãy gửi thắc mắc của bạn cho giáo viên!</div>')
+  +'</div>'
+  +'</div>';
  }
 };
 
@@ -1443,6 +1556,7 @@ const actions={
  },
  /* Các thao tác chấm điểm bài nộp */
  'grade-filter'(el){ui.grade.filter=el.dataset.f;ui.grade.sel=null;refresh();sTick();},
+ 'grade-reset'(){ui.grade.q='';ui.grade.subject='all';ui.grade.className='all';ui.grade.date='';ui.grade.sel=null;refresh();sTick();},
  'grade-sel'(el){
   ui.grade.sel=el.dataset.id;
   const s=db.submissions.find(x=>x.id===el.dataset.id);
@@ -1489,6 +1603,12 @@ const actions={
  /* Các thao tác xem và ghi kết quả thể lực */
  'metric'(el){ui.metric=el.dataset.k;refresh();sTick();},
  'add-measure'(){openModal(measureFormHTML());sPop();},
+ /* Xóa câu hỏi của học sinh */
+ 'del-question'(el){
+  if(!Array.isArray(db.questions))return;
+  const idx=db.questions.findIndex(x=>x.id===el.dataset.id);if(idx<0)return;
+  db.questions.splice(idx,1);persist();sDel();toast('🗑️ Đã xóa câu hỏi.');refresh();
+ },
  /* Điều khiển phát, dừng và tua video mô phỏng */
  'p-play'(el){
   const p=playerMap[el.dataset.p];if(!p)return;
@@ -1500,6 +1620,9 @@ const inputs={
  'lib-q'(el){ui.lib.q=el.value;refreshGrid();},
  'lib-sort'(el){ui.lib.sort=el.value;refreshGrid();},
  'grade-q'(el){ui.grade.q=el.value;const pos=el.selectionStart;refresh();const ni=document.querySelector('input[data-input="grade-q"]');if(ni){ni.focus();ni.setSelectionRange(pos,pos);}},
+ 'grade-subject'(el){ui.grade.subject=el.value;ui.grade.sel=null;refresh();sTick();},
+ 'grade-class'(el){ui.grade.className=el.value;ui.grade.sel=null;refresh();sTick();},
+ 'grade-date'(el){ui.grade.date=el.value;ui.grade.sel=null;refresh();sTick();},
  'rubric'(el){
   const k=el.dataset.k;const v=+el.value;
   ui.grade.scores[k]=v;
@@ -1511,7 +1634,12 @@ const inputs={
  },
  'p-seek'(el){const p=playerMap[el.dataset.p];if(p){p.seekFrac(+el.value/1000);el.style.setProperty('--fill',(el.value/10)+'%');}},
  'p-speed'(el){const p=playerMap[el.dataset.p];if(p)p.speed=+el.value;},
- 'student-week'(el){ui.studentWeek=el.value;ui.expanded=null;refresh();sTick();}
+ 'student-week'(el){ui.studentWeek=el.value;ui.expanded=null;refresh();sTick();},
+ 'sub-video-file'(el){
+  const f=el.files&&el.files[0];
+  const meta=$('#subFileMeta');
+  if(meta)meta.textContent=f?('📎 Đã chọn: '+f.name+' ('+(f.size/1024/1024).toFixed(2)+' MB)'):'Chưa chọn tệp video (nếu thử nhanh có thể bỏ trống để dùng video mẫu).';
+ }
 };
 const forms={
  'video'(f){
@@ -1570,6 +1698,47 @@ const forms={
   db.fitness.push(rec);persist();sOk();closeModal();
   toast('📈 Đã ghi kết quả tuần '+rec.week+' — biểu đồ cập nhật!');
   refresh();
+ },
+ 'student-submit'(f){
+  const file=f.videoFile&&f.videoFile.files&&f.videoFile.files[0];
+  const fileName=file?file.name:'video_thuc_hanh_'+todayISO()+'.mp4';
+  const v=vid(f.videoId.value);
+  db.submissions.unshift({
+   id:uid(),
+   student:db.users.student.name,
+   className:'10A1',
+   videoId:f.videoId.value,
+   weekId:f.weekId.value,
+   date:todayISO(),
+   status:'pending',
+   scores:null,
+   comment:'',
+   fileName,
+   studentNote:f.note.value.trim()
+  });
+  persist();sOk();
+  toast('🎬 Đã nộp video «'+(v?v.title:'bài tập')+'» — giáo viên sẽ chấm sớm!');
+  refresh();
+ },
+ 'student-question'(f){
+  const qText=f.question.value.trim();
+  $('#qTextField').classList.toggle('invalid',qText.length<5);
+  if(qText.length<5)return;
+  if(!Array.isArray(db.questions))db.questions=[];
+  db.questions.unshift({
+   id:uid(),
+   student:db.users.student.name,
+   className:'10A1',
+   topic:f.topic.value,
+   question:qText,
+   date:todayISO(),
+   status:'pending',
+   reply:'',
+   replyDate:''
+  });
+  persist();sOk();
+  toast('✉️ Đã gửi câu hỏi cho giáo viên!');
+  refresh();
  }
 };
 
@@ -1587,7 +1756,7 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('change',e=>{
  const el=e.target.closest('[data-input]');
- if(el&&(el.tagName==='SELECT')&&inputs[el.dataset.input])inputs[el.dataset.input](el);
+ if(el&&(el.tagName==='SELECT'||el.type==='file')&&inputs[el.dataset.input])inputs[el.dataset.input](el);
 });
 document.addEventListener('submit',e=>{
  const f=e.target.closest('form[data-form]');
