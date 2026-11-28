@@ -31,7 +31,7 @@ a{color:inherit;text-decoration:none}
 svg{display:block}
 canvas{display:block}
 ::selection{background:var(--lime);color:var(--pine)}
-/* scrollbars in palette */
+/* Thanh cuộn được tô màu theo bảng màu chủ đề */
 ::-webkit-scrollbar{width:11px;height:11px}
 ::-webkit-scrollbar-track{background:#e9ece2}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--green-hi),var(--green-deep));border-radius:8px;border:3px solid #e9ece2}
@@ -41,7 +41,7 @@ html{scrollbar-color:var(--green) #e9ece2;scrollbar-width:thin}
 .side ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--lime-deep),var(--green));border-color:var(--pine)}
 h1,h2,h3.brand{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400;letter-spacing:.01em}
 
-/* ============ LOGIN ============ */
+/* ============ TRANG ĐĂNG NHẬP ============ */
 .login{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;background:
   radial-gradient(900px 600px at 85% -10%, rgba(163,230,53,.14), transparent 60%),
   radial-gradient(700px 500px at -10% 110%, rgba(29,111,224,.18), transparent 55%),
@@ -81,7 +81,7 @@ h1,h2,h3.brand{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400;
 .login-feats{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .login-feats span{font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#cfe6c2}
 
-/* ============ SHELL ============ */
+/* ============ KHUNG GIAO DIỆN CHÍNH ============ */
 .shell{min-height:100vh}
 .side{position:fixed;inset:0 auto 0 0;width:var(--side-w);z-index:60;display:flex;flex-direction:column;
   background:linear-gradient(175deg,var(--pine) 0%,var(--pine-2) 70%,#0d3320 100%);color:#dcead9;
@@ -127,7 +127,7 @@ h1,h2,h3.brand{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400;
 .side-scrim{position:fixed;inset:0;z-index:55;background:rgba(12,43,24,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s}
 .side-scrim.show{opacity:1;pointer-events:auto}
 
-/* ============ COMMON UI ============ */
+/* ============ THÀNH PHẦN GIAO DIỆN CHUNG ============ */
 .pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
 .pagehead h2{font-size:clamp(20px,2.4vw,27px);color:var(--pine)}
 .pagehead .sub{color:var(--mut);font-size:13.5px;margin-top:5px;max-width:600px}
@@ -179,7 +179,7 @@ h1,h2,h3.brand{font-family:'Bungee','Be Vietnam Pro',sans-serif;font-weight:400;
 select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--line);background:var(--surface);font-weight:600}
 .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
 
-/* stat cards */
+/* Thẻ thống kê hiển thị số liệu nổi bật */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:24px}
 .stat-card{position:relative;overflow:hidden;border-radius:var(--r);padding:20px;color:#fff;box-shadow:var(--shadow);transition:transform .25s}
 .stat-card:hover{transform:translateY(-4px)}
@@ -194,7 +194,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .sc-purple{background:linear-gradient(130deg,#9d70f8,#6d3fd4 70%,#5630ab)}
 .sc-cyan{background:linear-gradient(130deg,#2cb9ef,#0284c7 70%,#0369a1)}
 
-/* ============ PLAYER ============ */
+/* ============ TRÌNH PHÁT ĐỘNG TÁC ============ */
 .player{border-radius:14px;overflow:hidden;background:linear-gradient(165deg,#eaf3e4,#dcead2);border:1px solid #cfe0c2;position:relative}
 .player canvas{width:100%;height:230px}
 .player.mini canvas{height:150px}
@@ -210,7 +210,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .pspeed option{color:var(--ink)}
 .preps{font-size:11px;font-weight:800;color:var(--lime);min-width:48px;text-align:right;white-space:nowrap}
 
-/* ============ LIBRARY ============ */
+/* ============ GIAO DIỆN THƯ VIỆN ============ */
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
 .vcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;cursor:pointer;position:relative}
 .vcard:hover{transform:translateY(-5px);box-shadow:0 24px 44px -20px rgba(18,36,24,.4)}
@@ -228,7 +228,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .vtool.del:hover{color:var(--danger);border-color:var(--danger)}
 .vtool svg{width:15px;height:15px}
 
-/* ============ DRAWER & MODAL ============ */
+/* ============ NGĂN KÉO VÀ HỘP THOẠI ============ */
 .scrim{position:fixed;inset:0;z-index:90;background:rgba(12,26,17,.5);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s}
 .scrim.open{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;right:0;bottom:0;z-index:95;width:min(560px,94vw);background:var(--paper);
@@ -252,7 +252,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .modal-head h3{font-size:16.5px;font-weight:800}
 .modal-body{padding:20px 22px;overflow-y:auto}
 
-/* toast + undo */
+/* Thông báo nhanh và thanh hoàn tác */
 .toast-zone{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:120;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none;width:min(560px,92vw)}
 .toast{background:var(--pine);color:#eef4ec;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:600;border:1.5px solid var(--lime-deep);
   box-shadow:0 16px 34px -10px rgba(0,0,0,.5);display:flex;gap:9px;align-items:center;animation:tin .35s cubic-bezier(.34,1.56,.64,1);max-width:100%}
@@ -264,7 +264,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .undo-bar button{color:var(--lime);font-weight:800;font-size:13px;padding:6px 13px;border-radius:9px;background:rgba(163,230,53,.14);border:1px solid rgba(163,230,53,.4)}
 .undo-bar button:hover{background:rgba(163,230,53,.26)}
 
-/* ============ PLANS ============ */
+/* ============ GIAO DIỆN GIÁO ÁN ============ */
 .weekgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
 .wcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:transform .25s, box-shadow .25s;position:relative;overflow:hidden;text-align:left;width:100%}
 .wcard::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--green-hi),var(--lime))}
@@ -294,7 +294,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .objlist li{display:flex;gap:9px;font-size:13px;color:var(--ink);align-items:flex-start}
 .objlist li::before{content:"◆";color:var(--lime-deep);font-size:10px;margin-top:4px}
 
-/* ============ GRADING ============ */
+/* ============ GIAO DIỆN CHẤM ĐIỂM ============ */
 .grade-layout{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
 .qlist{display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 250px);overflow-y:auto;padding-right:4px}
 .qitem{display:flex;gap:12px;align-items:center;text-align:left;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;transition:all .18s}
@@ -317,7 +317,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .totalbox .tnum{font-family:'Bungee';font-size:38px;line-height:1;color:var(--pine)}
 .totalbox .tmax{font-size:13px;color:var(--mut);font-weight:700}
 
-/* ============ STUDENT LESSON ============ */
+/* ============ GIAO DIỆN BÀI HỌC HỌC SINH ============ */
 .lesson-layout{display:grid;grid-template-columns:300px 1fr;gap:22px;align-items:start}
 .lesson-side{position:sticky;top:calc(var(--top-h) + 20px)}
 .ringwrap{display:flex;align-items:center;gap:16px;margin-bottom:16px}
@@ -348,7 +348,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .litem.open .li-body{display:block}
 .li-note{font-size:12.5px;color:var(--mut);margin:10px 0;padding:10px 13px;background:#f6f9f1;border-radius:10px;border-left:3px solid var(--lime-deep)}
 
-/* ============ DIARY ============ */
+/* ============ GIAO DIỆN NHẬT KÝ ============ */
 .diary-layout{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
 .seg{display:flex;gap:6px}
 .seg button{flex:1;padding:9px 4px;border-radius:10px;border:1.5px solid var(--line);background:#fbfcf8;font-weight:800;font-size:13px;color:var(--mut);transition:all .15s}
@@ -371,7 +371,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .mini-stat .ms b{font-family:'Bungee';font-size:21px;color:var(--pine);display:block}
 .mini-stat .ms span{font-size:11.5px;color:var(--mut);font-weight:700}
 
-/* ============ PROGRESS ============ */
+/* ============ GIAO DIỆN TIẾN ĐỘ ============ */
 .chart-card{padding:20px 22px}
 .chart-card h3{font-size:15px;font-weight:800;margin-bottom:4px}
 .chart-card .csub{font-size:12px;color:var(--mut);margin-bottom:14px}
@@ -389,7 +389,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
 .prog-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-bottom:18px}
 
-/* dashboard bits */
+/* Các khối dùng trong giao diện tổng quan */
 .dash-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}
 .listcard{padding:20px 22px}
 .listcard h3{font-size:15px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:9px}
@@ -406,7 +406,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 .hero-strip p{font-size:13px;color:#c4e2c9;max-width:560px}
 .hero-strip .hs-date{position:absolute;right:24px;top:22px;font-size:12px;font-weight:800;color:var(--lime);background:rgba(12,43,24,.5);padding:7px 14px;border-radius:999px;border:1px solid rgba(163,230,53,.35)}
 
-/* responsive */
+/* Điều chỉnh bố cục khi mở trên màn hình nhỏ */
 @media (max-width:1080px){
   .grade-layout,.diary-layout,.lesson-layout,.dash-grid,.prog-grid{grid-template-columns:1fr}
   .lesson-side{position:static}
@@ -572,7 +572,8 @@ function seed(){
  };
 }
 
-/* ================= MOCK API ================= */
+/* ================= MO PHỎNG API ================= */
+// Giả lập quá trình tải và lưu dữ liệu, đồng thời lưu trạng thái vào localStorage.
 const KEY='sportcoach_db_v1';
 let db=null;
 const api={
@@ -593,7 +594,8 @@ const api={
 function persist(){api.save().catch(()=>toast('⚠️ Không lưu được dữ liệu.'));}
 function setSync(busy){const el=$('#sync');if(el){el.classList.toggle('busy',busy);el.querySelector('span:last-child').textContent=busy?'Đang đồng bộ…':'Đã đồng bộ';}}
 
-/* ================= SOUND ================= */
+/* ================= ÂM THANH TƯƠNG TÁC ================= */
+// Tạo âm nhỏ khi người dùng nhấn nút, lưu điểm hoặc xóa dữ liệu.
 let soundOn=true,actx=null;
 function ac(){if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();return actx;}
 function tone(f,d,type,g,when){if(!soundOn)return;try{const a=ac(),o=a.createOscillator(),gn=a.createGain(),t=a.currentTime+(when||0);o.type=type||'sine';o.frequency.setValueAtTime(f,t);gn.gain.setValueAtTime(g||.08,t);gn.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(gn);gn.connect(a.destination);o.start(t);o.stop(t+d+.02);}catch(e){}}
@@ -602,7 +604,8 @@ const sPop=()=>tone(520,.07,'triangle',.07);
 const sOk=()=>{tone(880,.1,'sine',.08);tone(1318,.16,'sine',.06,.07);};
 const sDel=()=>tone(240,.12,'sine',.07);
 
-/* ================= TOAST & UNDO ================= */
+/* ================= THÔNG BÁO VÀ HOÀN TÁC ================= */
+// Hiển thị thông báo ngắn và cho phép hoàn tác thao tác vừa thực hiện.
 function toast(msg){const z=$('#toastZone');const t=document.createElement('div');t.className='toast';t.textContent=msg;z.appendChild(t);setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),320);},2600);}
 let undoState=null,undoTimer=null;
 function offerUndo(msg,fn){
@@ -669,7 +672,7 @@ class Player{
   ctx.strokeStyle='rgba(14,122,61,.16)';ctx.lineWidth=2;
   ctx.beginPath();ctx.arc(ox+100*s,oy+186*s,70*s,Math.PI,0);ctx.stroke();
   ctx.beginPath();ctx.moveTo(0,oy+186*s);ctx.lineTo(w,oy+186*s);ctx.stroke();
-  // shadow
+  // Vẽ bóng phía dưới nhân vật để tạo cảm giác đứng trên sàn.
   ctx.fillStyle='rgba(18,36,24,.16)';ctx.beginPath();ctx.ellipse(ox+100*s,oy+184*s,44*s,7*s,0,0,Math.PI*2);ctx.fill();
   const seg=(a,b,cw,col)=>{ctx.strokeStyle=col;ctx.lineWidth=cw*s;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();const A=X(a);ctx.moveTo(A[0],A[1]);for(let i=1;i<b.length;i++){const B=X(b[i]);ctx.lineTo(B[0],B[1]);}ctx.stroke();};
   const dark='#123524',mid='#0e7a3d';
@@ -860,7 +863,7 @@ function gradeLabel(t){return t>=8.5?['Xuất sắc','ok']:t>=7?['Tốt','blue']
 function streak(){let n=0;for(let i=0;i<60;i++){const d=isoAdd(-i);if(db.diary.some(e=>e.date===d))n++;else if(i>0)break;}return n;}
 function last7(){const out=[];for(let i=6;i>=0;i--){const d=isoAdd(-i);const mins=db.diary.filter(e=>e.date===d).reduce((a,e)=>a+e.minutes,0);out.push({d,mins,label:dParts(d).dow});}return out;}
 
-/* ================= ROUTER & SHELL ================= */
+/* ================= BỘ ĐIỀU HƯỚNG VÀ KHUNG GIAO DIỆN ================= */
 // Hash router chuyển trang và dựng khung giao diện theo vai trò.
 function route(){
  const h=(location.hash||'#/').replace(/^#\/?/,'');
@@ -941,18 +944,18 @@ function render(){
  if(pg.mount)pg.mount();
  window.scrollTo(0,0);
 }
-function refresh(){ // re-render page content only (keep shell)
+function refresh(){ // Chỉ dựng lại vùng nội dung, giữ nguyên thanh điều hướng và tiêu đề.
  const r=route();if(r.page==='login'){render();return;}
  players.forEach(p=>p.destroy());players.clear();for(const k in playerMap)delete playerMap[k];charts.length=0;hideTip();
  const pg=PAGES[r.page+'/'+r.sub]||PAGES[r.page+'/home'];
  $('#page').innerHTML=pg.html();if(pg.mount)pg.mount();
- // refresh badge
+ // Cập nhật lại số lượng thông báo trên thanh điều hướng.
  const role=db.session.role;
  $$('.snav').forEach(a=>{const b=a.querySelector('.badge');const n=NAVS[role].find(x=>a.getAttribute('href')==='#/'+role+'/'+x.sub);if(n&&n.badge){const c=n.badge();if(b)b.textContent=c;}});
 }
 window.addEventListener('hashchange',render);
 
-/* ================= DRAWER / MODAL ================= */
+/* ================= NGĂN KÉO / HỘP THOẠI ================= */
 function openDrawer(html){$('#drawer').innerHTML=html;$('#drawer').classList.add('open');$('#drawer').setAttribute('aria-hidden','false');$('#drawerScrim').classList.add('open');}
 function closeDrawer(silent){
  $('#drawer').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');$('#drawerScrim').classList.remove('open');
@@ -962,7 +965,7 @@ function openModal(html){$('#modal').innerHTML=html;$('#modalWrap').classList.ad
 function closeModal(silent){$('#modalWrap').classList.remove('open');$('#modalWrap').setAttribute('aria-hidden','true');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeModal();const s=$('#side');if(s)s.classList.remove('open');const sc=$('#sideScrim');if(sc)sc.classList.remove('show');}});
 
-/* ================= PAGE: LOGIN ================= */
+/* ================= TRANG: ĐĂNG NHẬP ================= */
 PAGES.login={
  html(){
   return '<div class="login">'
@@ -988,7 +991,7 @@ PAGES.login={
  }
 };
 
-/* ================= PAGE: TEACHER HOME ================= */
+/* ================= TRANG: TỔNG QUAN GIÁO VIÊN ================= */
 // Trang tổng quan của giáo viên: thống kê, lịch tuần và bài chờ chấm.
 PAGES['teacher/home']={
  html(){
@@ -1021,7 +1024,7 @@ PAGES['teacher/home']={
 };
 function avgGraded(){const g=db.submissions.filter(s=>s.status==='graded');if(!g.length)return '—';return (g.reduce((a,s)=>a+gradeTotal(s.scores),0)/g.length).toFixed(1);}
 
-/* ================= PAGE: TEACHER PLANS ================= */
+/* ================= TRANG: GIÁO ÁN GIÁO VIÊN ================= */
 PAGES['teacher/plans']={
  html(){
   return '<div class="pagehead"><div><span class="kicker">Soạn giảng · Lớp 10A1</span><h2>GIÁO ÁN THEO TUẦN</h2><p class="sub">Mỗi giáo án gồm 3 khối: Khởi động — Vận động chính — Thả lỏng. Xuất bản để học sinh nhìn thấy và ôn tập.</p></div>'
@@ -1062,7 +1065,8 @@ function weekEditorHTML(w){
  +'</div></div>';
 }
 
-/* ================= PAGE: LIBRARY (shared) ================= */
+/* ================= TRANG THƯ VIỆN (DÙNG CHUNG) ================= */
+// Giao diện và bộ lọc thư viện được chia sẻ cho giáo viên và học sinh.
 function libPageHTML(role){
  return '<div class="pagehead"><div><span class="kicker">'+(role==='teacher'?'Tư liệu giảng dạy':'Ôn tập động tác')+'</span><h2>THƯ VIỆN VIDEO ĐỘNG TÁC</h2><p class="sub">'+(role==='teacher'?'Mỗi video là một mô phỏng chuyển động chuẩn — thêm, sửa, xoá và gắn vào giáo án.':'Xem mô phỏng động tác chuẩn, tua chậm từng nhịp và luyện theo đúng biên độ.')+'</p></div>'
  +(role==='teacher'?'<button class="btn btn-p" data-action="new-video">'+I.plus+' Thêm video</button>':'')+'</div>'
@@ -1127,7 +1131,8 @@ function videoDrawerHTML(v){
  +'</div></div>';
 }
 
-/* ================= PAGE: GRADING ================= */
+/* ================= TRANG CHẤM ĐIỂM ================= */
+// Giáo viên chọn bài nộp, điều chỉnh rubric và lưu điểm nhận xét.
 PAGES['teacher/grading']={
  html(){
   const g=ui.grade;
@@ -1183,7 +1188,8 @@ function updateGradeTotal(){
  const lb=$('#gLabel');if(lb){lb.textContent=gl[0];lb.className='chip '+gl[1];lb.style.marginLeft='auto';lb.style.fontSize='13px';}
 }
 
-/* ================= PAGE: STUDENT HOME ================= */
+/* ================= TRANG CHỦ HỌC SINH ================= */
+// Hiển thị giáo án tuần, tiến độ hoàn thành và danh sách động tác.
 PAGES['student/home']={
  html(){
   const published=db.weeks.filter(w=>w.status==='published');
@@ -1243,7 +1249,8 @@ PAGES['student/home']={
  }
 };
 
-/* ================= PAGE: DIARY ================= */
+/* ================= TRANG NHẬT KÝ ================= */
+// Học sinh ghi buổi tập, cường độ, cảm nhận và xem lịch sử luyện tập.
 const FEELS={good:'😄',ok:'🙂',tired:'😮‍💨'};
 PAGES['student/diary']={
  html(){
@@ -1286,7 +1293,8 @@ PAGES['student/diary']={
  }
 };
 
-/* ================= PAGE: PROGRESS ================= */
+/* ================= TRANG TIẾN ĐỘ THỂ LỰC ================= */
+// Trình bày các chỉ số thể lực và biểu đồ so sánh theo từng tuần.
 PAGES['student/progress']={
  html(){
   const m=METRICS[ui.metric];
@@ -1321,7 +1329,8 @@ PAGES['student/progress']={
  }
 };
 
-/* ================= MODALS ================= */
+/* ================= CÁC HỘP THOẠI ================= */
+// Tạo form thêm hoặc sửa video, giáo án, số đo và nhật ký.
 function videoFormHTML(v){
  const isEdit=!!v;v=v||{title:'',cat:'Thể dục cơ bản',level:'Cơ bản',dur:45,anim:'jumpingJacks',tempo:1.1,steps:[]};
  return '<div class="modal-head"><h3>'+(isEdit?'🎬 Sửa video động tác':'🎬 Thêm video động tác')+'</h3><button class="xbtn" data-action="close-modal">'+I.x+'</button></div>'
@@ -1386,7 +1395,7 @@ const actions={
  'close-drawer'(){closeDrawer();sPop();},
  'close-modal'(){closeModal();sPop();},
  'undo'(){if(undoState){const fn=undoState;clearUndo();fn();persist();sOk();toast('↩ Đã hoàn tác.');}},
- /* library */
+ /* Các thao tác của thư viện video */
  'lib-cat'(el){ui.lib.cat=el.dataset.cat;$$('#catFilters .fchip').forEach(c=>c.classList.toggle('active',c===el));refreshGrid();sTick();},
  'open-video'(el,e){
   if(e.target.closest('.vtool'))return;
@@ -1407,7 +1416,7 @@ const actions={
   offerUndo('Đã xoá «'+removed.title+'»',()=>{db.videos.splice(Math.min(idx,db.videos.length),0,removed);refreshGrid();});
  },
  'log-video'(el){const v=vid(el.dataset.id);closeDrawer();location.hash='#/student/diary';setTimeout(()=>{const f=document.querySelector('form[data-form="diary"]');if(f){f.activity.value='Luyện: '+v.title;f.videoId.value=v.id;f.activity.focus();toast('📔 Đã điền sẵn nội dung — chọn số phút và lưu nhé!');}},80);},
- /* plans */
+ /* Các thao tác của giáo án và kế hoạch tuần */
  'open-week'(el){const w=week(el.dataset.id);if(!w)return;ui.drawerWeek=w.id;openDrawer(weekEditorHTML(w));sPop();},
  'new-week'(){openModal(weekFormHTML());sPop();},
  'toggle-publish'(el){
@@ -1432,7 +1441,7 @@ const actions={
   openDrawer(weekEditorHTML(w));refresh();
   offerUndo('Đã bỏ động tác khỏi '+w.label,()=>{b.items.splice(Math.min(idx,b.items.length),0,removed);if(ui.drawerWeek===w.id&&$('#drawer').classList.contains('open'))openDrawer(weekEditorHTML(w));refresh();});
  },
- /* grading */
+ /* Các thao tác chấm điểm bài nộp */
  'grade-filter'(el){ui.grade.filter=el.dataset.f;ui.grade.sel=null;refresh();sTick();},
  'grade-sel'(el){
   ui.grade.sel=el.dataset.id;
@@ -1451,7 +1460,7 @@ const actions={
   refresh();
  },
  'ungrade'(el){const s=db.submissions.find(x=>x.id===el.dataset.id);if(!s)return;ui.grade.scores=Object.assign({},s.scores);s.status='pending';persist();sPop();toast('↩ Đã chuyển về chờ chấm.');refresh();},
- /* student lesson */
+ /* Các thao tác học tập của học sinh */
  'expand-item'(el,e){
   if(e.target.closest('.li-check'))return;
   const id=el.dataset.id;
@@ -1467,7 +1476,7 @@ const actions={
   if(now){sOk();toast('✅ Hoàn thành! Tiếp tục phát huy nhé.');}else sTick();
   refresh();
  },
- /* diary */
+ /* Các thao tác thêm, sửa và xóa nhật ký */
  'diary-int'(el){ui.diary.intensity=+el.dataset.v;$$('#intSeg button').forEach(b=>b.classList.toggle('on',b===el));sTick();},
  'diary-feel'(el){ui.diary.feel=el.dataset.v;$$('.feels button').forEach(b=>b.classList.toggle('on',b===el));sTick();},
  'edit-diary'(el){const e=db.diary.find(x=>x.id===el.dataset.id);if(e){openModal(diaryEditHTML(e));sPop();}},
@@ -1477,10 +1486,10 @@ const actions={
   db.diary.splice(idx,1);persist();sDel();refresh();
   offerUndo('Đã xoá buổi tập ngày '+dParts(removed.date).day+'/'+dParts(removed.date).mon,()=>{db.diary.splice(Math.min(idx,db.diary.length),0,removed);refresh();});
  },
- /* progress */
+ /* Các thao tác xem và ghi kết quả thể lực */
  'metric'(el){ui.metric=el.dataset.k;refresh();sTick();},
  'add-measure'(){openModal(measureFormHTML());sPop();},
- /* player */
+ /* Điều khiển phát, dừng và tua video mô phỏng */
  'p-play'(el){
   const p=playerMap[el.dataset.p];if(!p)return;
   p.playing=!p.playing;el.innerHTML=p.playing?I.pause:I.play;sTick();
@@ -1584,7 +1593,7 @@ document.addEventListener('submit',e=>{
  const f=e.target.closest('form[data-form]');
  if(f){e.preventDefault();if(forms[f.dataset.form])forms[f.dataset.form](f);}
 });
-/* hover-animated thumbnails */
+/* Hiệu ứng mô phỏng chuyển động khi rê chuột qua ảnh bìa video */
 let hoverP=null,hoverCv=null;
 document.addEventListener('mouseover',e=>{
  const cv=e.target.closest('.vthumb canvas[data-anim]');
@@ -1600,7 +1609,7 @@ document.addEventListener('mouseout',e=>{
   drawThumb(cv,cv.dataset.anim);hoverCv=null;
  }
 });
-/* resize: charts + players */
+/* Cập nhật kích thước biểu đồ và trình phát khi cửa sổ thay đổi */
 let rT=null;
 window.addEventListener('resize',()=>{
  clearTimeout(rT);
@@ -1611,7 +1620,8 @@ window.addEventListener('resize',()=>{
  },160);
 });
 
-/* ================= BOOT ================= */
+/* ================= KHỞI ĐỘNG ỨNG DỤNG ================= */
+// Tải dữ liệu, xác định trang ban đầu và bắt đầu dựng giao diện.
 (async function boot(){
  db=await api.load();
  if(!location.hash)location.hash=db.session.role?'#/'+db.session.role+'/home':'#/login';
