@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<!-- Metadata và tài nguyên dùng chung của trang -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SportCoach — Hệ thống Giáo dục thể chất</title>
@@ -8,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bungee&display=swap" rel="stylesheet">
 <style>
+/* --- Bảng màu, khoảng cách và hiệu ứng dùng chung --- */
 :root{
   --green:#0e7a3d; --green-hi:#14934b; --green-deep:#0a5c2e; --pine:#0c2b18; --pine-2:#123a22;
   --lime:#a3e635; --lime-deep:#65a30d;
@@ -429,7 +431,9 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 </style>
 </head>
 <body>
+<!-- Nơi ứng dụng dựng toàn bộ giao diện bằng JavaScript -->
 <div id="root"></div>
+<!-- Các lớp phủ dùng chung cho drawer, modal, toast và tooltip -->
 <div class="scrim" id="drawerScrim" data-action="close-drawer"></div>
 <aside class="drawer" id="drawer" aria-hidden="true"></aside>
 <div class="modal-wrap" id="modalWrap" aria-hidden="true">
@@ -444,6 +448,7 @@ select.sortsel{padding:10px 14px;border-radius:13px;border:1.5px solid var(--lin
 (function(){
 "use strict";
 /* ================= UTILS ================= */
+// Các hàm truy cập DOM, mã hoá dữ liệu và xử lý ngày giờ dùng chung.
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=> 'id'+Math.random().toString(36).slice(2,9);
@@ -481,6 +486,7 @@ const I={
 /* ================= SEED DATA ================= */
 const CATS={'Thể dục cơ bản':{cls:'green',emoji:'🤸'},'Thể lực':{cls:'orange',emoji:'💪'},'Điền kinh':{cls:'blue',emoji:'🏃'},'Khởi động':{cls:'gold',emoji:'🔆'},'Thả lỏng':{cls:'cyan',emoji:'🧘'},'Kỹ thuật':{cls:'purple',emoji:'🎯'}};
 const LEVELS={'Cơ bản':'ok','Trung bình':'warn','Nâng cao':'danger'};
+// Tạo dữ liệu mẫu lần đầu cho thư viện, kế hoạch, nhật ký và điểm thể lực.
 function seed(){
  const V=(id,title,cat,level,dur,anim,tempo,views,steps)=>({id,title,cat,level,dur,anim,tempo,views,steps,createdAt:isoAdd(-Math.floor(Math.random()*30)-5),desc:steps[0]});
  const videos=[
@@ -609,6 +615,7 @@ function offerUndo(msg,fn){
 function clearUndo(){if(undoTimer)clearTimeout(undoTimer);undoTimer=null;undoState=null;$('#undoZone').innerHTML='';}
 
 /* ================= MOTION ENGINE ================= */
+// Các hằng pose lưu tọa độ khớp để dựng khung hoạt hình trên canvas.
 const BASE={head:[100,36],neck:[100,50],hip:[100,104],le:[83,77],lh:[77,104],re:[117,77],rh:[123,104],lk:[93,140],lf:[89,176],rk:[107,140],rf:[111,176]};
 const PKEYS=Object.keys(BASE);
 const P=(o)=>Object.assign({},BASE,o);
@@ -624,6 +631,7 @@ const JUMP=P({head:[100,22],neck:[100,36],hip:[100,84],le:[76,52],lh:[60,34],re:
 const PU_UP={head:[152,116],neck:[140,122],hip:[96,134],le:[136,148],lh:[140,176],re:[132,148],rh:[138,176],lk:[70,146],lf:[42,176],rk:[68,150],rf:[40,176]};
 const PU_DN={head:[154,146],neck:[142,152],hip:[98,158],le:[128,162],lh:[140,176],re:[126,164],rh:[138,176],lk:[72,164],lf:[42,176],rk:[70,166],rf:[40,176]};
 const armFrames=[];for(let i=0;i<8;i++){const a=i/8*Math.PI*2;const hx=100+Math.cos(a)*54,hy=50+Math.sin(a)*54;const ex=100+Math.cos(a)*28,ey=50+Math.sin(a)*28;armFrames.push(P({le:[ex-4,ey],lh:[hx-6,hy],re:[ex+4,ey],rh:[hx+6,hy]}));}
+// Liên kết tên động tác với danh sách khung pose tương ứng.
 const ANIMS={
  jumpingJacks:{frames:[BASE,JACK],tempo:1.1,label:'Jumping Jacks'},
  squat:{frames:[SQ_UP,SQ_DN],tempo:2.2,label:'Squat'},
@@ -725,6 +733,7 @@ function mountThumbs(scope){
 }
 
 /* ================= CHARTS ================= */
+// Các hàm canvas dựng biểu đồ đường, cột và radar trên trang thống kê.
 const charts=[];
 const HUES=['#0e7a3d','#1d6fe0','#f4632e','#f5b301','#8b5cf6','#0ea5e9'];
 const tip=$('#chartTip');
@@ -822,6 +831,7 @@ function radarChart(cv,axes,aVals,bVals,opts){
 }
 
 /* ================= UI STATE ================= */
+// Trạng thái điều khiển bộ lọc, trang đang xem và dữ liệu form trong phiên.
 const ui={
  lib:{q:'',cat:'all',sort:'new'},
  grade:{sel:null,filter:'pending',q:'',scores:{posture:7,range:7,rhythm:7,finish:7}},
@@ -851,6 +861,7 @@ function streak(){let n=0;for(let i=0;i<60;i++){const d=isoAdd(-i);if(db.diary.s
 function last7(){const out=[];for(let i=6;i>=0;i--){const d=isoAdd(-i);const mins=db.diary.filter(e=>e.date===d).reduce((a,e)=>a+e.minutes,0);out.push({d,mins,label:dParts(d).dow});}return out;}
 
 /* ================= ROUTER & SHELL ================= */
+// Hash router chuyển trang và dựng khung giao diện theo vai trò.
 function route(){
  const h=(location.hash||'#/').replace(/^#\/?/,'');
  const parts=h.split('/').filter(Boolean);
@@ -978,6 +989,7 @@ PAGES.login={
 };
 
 /* ================= PAGE: TEACHER HOME ================= */
+// Trang tổng quan của giáo viên: thống kê, lịch tuần và bài chờ chấm.
 PAGES['teacher/home']={
  html(){
   const pub=db.weeks.filter(w=>w.status==='published').length;
@@ -1364,6 +1376,7 @@ function diaryEditHTML(e){
 }
 
 /* ================= ACTIONS ================= */
+// Tập trung các thao tác click; phần tử HTML gọi action qua data-action.
 const actions={
  'login'(el){db.session.role=el.dataset.role;persist();sOk();location.hash='#/'+el.dataset.role+'/home';if(route().page!=='login')render();toast('👋 Xin chào, '+db.users[el.dataset.role].name+'!');},
  'logout'(){db.session.role=null;persist();sPop();location.hash='#/login';render();},
@@ -1552,6 +1565,7 @@ const forms={
 };
 
 /* ================= EVENTS ================= */
+// Điều hướng sự kiện nhập liệu và gửi form từ toàn bộ ứng dụng.
 document.addEventListener('click',e=>{
  const el=e.target.closest('[data-action]');
  if(!el)return;
